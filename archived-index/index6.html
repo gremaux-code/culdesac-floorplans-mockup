@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Tempe Floor Plans | Culdesac</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand:       #F5F0E8;
+    --warm-white: #FDFAF5;
+    --clay:       #5AA9A7;
+    --clay-dark:  #3D8E8C;
+    --forest:     #5AA9A7;
+    --charcoal:   #1E1E1E;
+    --mid:        #5A5A52;
+    --border:     #E2D9CE;
+    --badge-bg:   #E6F4F4;
+    --radius:     10px;
+    --shadow:     0 4px 24px rgba(30,30,30,.08);
+    --shadow-h:   0 8px 40px rgba(30,30,30,.14);
+    --ease:       .22s cubic-bezier(.4,0,.2,1);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--warm-white); color: var(--charcoal); min-height: 100vh; }
+  .nav-logo svg { max-width: 140px; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(253,250,245,.98);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 64px;
+  }
+  .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+  .nav-logo svg { height: 22px; width: auto; }
+  .nav-logo svg .cls-1 { fill: var(--forest); }
+  .nav-right { display: flex; align-items: center; gap: 24px; }
+  .nav-right a { color: var(--mid); font-size: .875rem; text-decoration: none; transition: color var(--ease); white-space: nowrap; }
+  .nav-right a:hover { color: var(--charcoal); }
+  .nav-cta { background: var(--forest) !important; color: #fff !important; padding: 9px 20px; border-radius: 6px; font-weight: 500; font-size: .8rem !important; letter-spacing: .5px; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
+  .nav-cta:hover { background: var(--clay-dark) !important; }
+
+  /* HERO */
+  .hero { background: var(--forest); color: #fff; padding: 56px 40px 48px; }
+  .hero-eyebrow { font-size: .75rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 10px; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; line-height: 1.1; letter-spacing: -.5px; color: #F7F3F0; }
+  .hero h1 em { color: #F7F3F0; font-style: normal; }
+  .hero-sub { color: #E7F1F7; font-size: .95rem; margin-top: 14px; max-width: 480px; }
+
+  /* FILTER BAR */
+  .filter-bar { background: var(--sand); border-bottom: 1px solid var(--border); padding: 8px 40px; display: flex; align-items: center; gap: 8px; overflow-x: auto; overscroll-behavior-x: contain; touch-action: pan-x; -webkit-overflow-scrolling: touch; }
+  .filter-bar::-webkit-scrollbar { display: none; }
+  .filter-label { font-size: .7rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin-right: 8px; white-space: nowrap; }
+  .filter-btn { background: none; border: 1.5px solid transparent; padding: 10px 18px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: .85rem; color: var(--mid); cursor: pointer; white-space: nowrap; transition: all var(--ease); }
+  .filter-btn:hover { border-color: var(--border); color: var(--charcoal); }
+  .filter-btn.active { background: var(--forest); color: #fff; border-color: var(--forest); }
+  .filter-divider { width: 1px; height: 20px; background: var(--border); margin: 0 8px; flex-shrink: 0; }
+  .sort-select { margin-left: auto; background: none; border: 1.5px solid var(--border); padding: 8px 14px; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: .8rem; color: var(--mid); cursor: pointer; flex-shrink: 0; }
+
+  /* GRID */
+  .grid-section { padding: 40px 40px 80px; }
+  .results-meta { font-size: .8rem; color: var(--mid); margin-bottom: 24px; }
+  .results-meta strong { color: var(--charcoal); }
+  .unit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+
+  /* CARD */
+  .unit-card { background: #fff; border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; cursor: pointer; transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease); animation: fadeUp .4s ease both; }
+  .unit-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-h); border-color: var(--clay); }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(16px); } to { opacity:1; transform: translateY(0); } }
+
+  .card-img { position: relative; overflow: hidden; aspect-ratio: 4/3; min-height: 180px; background: var(--sand); }
+  .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+  .card-img img.error-img { object-fit: contain; padding: 24px; opacity: .3; }
+  .unit-card:hover .card-img img { transform: scale(1.04); }
+  .card-badge { position: absolute; top: 14px; left: 14px; background: rgba(255,255,255,.92); padding: 4px 10px; border-radius: 100px; font-size: .72rem; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--forest); }
+  .card-badge.waitlist { background: rgba(90,90,82,.12); color: var(--mid); }
+  .card-badge.avail-soon { background: rgba(193,125,82,.15); color: var(--clay-dark); }
+  .card-variant-count { position: absolute; bottom: 12px; right: 12px; background: rgba(0,0,0,.45); color: #fff; padding: 3px 9px; border-radius: 100px; font-size: .72rem; }
+
+  .card-body { padding: 20px 22px 22px; }
+  .card-type { font-size: .7rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); }
+  .card-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 500; margin: 4px 0 12px; }
+  .card-meta { display: flex; gap: 16px; margin-bottom: 14px; }
+  .card-meta-item { font-size: .82rem; color: var(--mid); display: flex; align-items: center; gap: 5px; }
+  .card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid var(--border); }
+  .card-price { font-family: 'Playfair Display', serif; }
+  .card-price-from { font-size: .7rem; letter-spacing: 1px; text-transform: uppercase; color: var(--mid); display: block; }
+  .card-price-num { font-size: 1.4rem; color: var(--charcoal); }
+  .card-price-mo { font-size: .75rem; color: var(--mid); }
+  .card-price-tbd { font-size: .95rem; color: var(--mid); font-family: 'DM Sans', sans-serif; }
+  .card-cta { background: var(--clay); color: #fff; border: none; padding: 10px 20px; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: .8rem; font-weight: 500; cursor: pointer; transition: background var(--ease); }
+  .card-cta:hover { background: var(--clay-dark); }
+
+  /* MODAL */
+  .modal-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(20,20,20,.65); backdrop-filter: blur(4px); display: flex; align-items: flex-end; justify-content: center; opacity: 0; pointer-events: none; transition: opacity var(--ease); }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal { background: var(--warm-white); width: 100%; max-width: 960px; max-height: 92vh; border-radius: 16px 16px 0 0; overflow-y: auto; -webkit-overflow-scrolling: touch; transform: translateY(60px); transition: transform .35s cubic-bezier(.4,0,.2,1); }
+  .modal-overlay.open .modal { transform: translateY(0); }
+
+  /* GALLERY */
+  .modal-gallery { position: relative; height: 520px; background: #fff; overflow: hidden; }
+  .gallery-slide img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-slide img.fp-img { object-fit: contain; background: #fff; padding: 0; width: 100%; height: 100%; }
+  .gallery-slides { display: flex; height: 100%; transition: transform .4s cubic-bezier(.4,0,.2,1); }
+  .gallery-slide { flex: 0 0 100%; height: 100%; }
+  .gallery-slide img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-slide img.fp-img { object-fit: contain; background: #fff; padding: 0; }
+  .modal-close { position: absolute; top: 16px; right: 16px; z-index: 10; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.9); border: none; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: background var(--ease); }
+  .modal-close:hover { background: #fff; }
+  .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: rgba(90,169,167,.18); border: 1.5px solid rgba(90,169,167,.4); cursor: pointer; font-size: 1.2rem; color: var(--forest); transition: background var(--ease); display: flex; align-items: center; justify-content: center; }
+  .gallery-arrow:hover { background: rgba(90,169,167,.32); }
+  .gallery-arrow.prev { left: 16px; }
+  .gallery-arrow.next { right: 16px; }
+  .gallery-dots { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
+  .gdot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.5); cursor: pointer; transition: background var(--ease); border: none; }
+  .gdot.active { background: #fff; }
+  .gallery-label { position: absolute; bottom: 14px; right: 16px; background: rgba(0,0,0,.45); color: #fff; padding: 3px 10px; border-radius: 100px; font-size: .72rem; }
+
+  /* MODAL CONTENT */
+  .modal-content { padding: 32px 40px 48px; }
+  .modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
+  .modal-type { font-size: .7rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 6px; }
+  .modal-name { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 500; }
+  .modal-price-block { text-align: right; flex-shrink: 0; }
+  .modal-from { font-size: .7rem; letter-spacing: 1px; text-transform: uppercase; color: var(--mid); }
+  .modal-price-big { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--clay); }
+  .modal-price-mo { font-size: .8rem; color: var(--mid); }
+
+  .type-section { margin-bottom: 40px; }
+  .type-heading { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 500; color: var(--charcoal); padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+  .unit-grid.grouped { display: block; }
+  .unit-grid-inner { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .modal-specs { display: flex; flex-wrap: wrap; margin-bottom: 28px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .modal-spec { flex: 1; min-width: 80px; padding: 12px 14px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .modal-spec:last-child { border-right: none; }
+  .spec-label { font-size: .68rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 4px; }
+  .spec-val { font-family: 'Playfair Display', serif; font-size: 1.2rem; }
+
+  .modal-body { display: grid; grid-template-columns: 1fr 300px; gap: 36px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 1rem; margin-bottom: 14px; color: var(--charcoal); }
+
+  /* FLOORPLAN VARIANTS */
+  .fp-variants { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .fp-variant-btn { background: var(--sand); border: 1.5px solid var(--border); padding: 7px 14px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: .78rem; cursor: pointer; transition: all var(--ease); color: var(--mid); }
+  .fp-variant-btn.active { background: var(--forest); color: #fff; border-color: var(--forest); }
+
+  .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .feature-tag { font-size: .78rem; color: var(--forest); background: var(--badge-bg); padding: 6px 12px; border-radius: 6px; }
+
+  /* AVAILABILITY */
+  .avail-list { display: flex; flex-direction: column; gap: 10px; }
+  .avail-item { border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; }
+  .avail-unit { font-weight: 500; font-size: .9rem; }
+  .avail-date { font-size: .8rem; color: var(--mid); margin-top: 2px; }
+  .avail-price { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 6px; }
+  .apply-btn { background: var(--forest); color: #fff; border: none; padding: 9px 18px; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: .78rem; font-weight: 500; cursor: pointer; transition: background var(--ease); }
+  .apply-btn:hover { background: var(--clay-dark); }
+  .waitlist-btn { background: none; color: var(--clay); border: 1.5px solid var(--clay); padding: 9px 18px; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: .78rem; cursor: pointer; transition: all var(--ease); width: 100%; margin-top: 8px; }
+  .waitlist-btn:hover { background: var(--clay); color: #fff; }
+  .no-avail { color: var(--mid); font-size: .85rem; padding: 8px 0 4px; }
+
+  /* CONTACT BAR */
+  .special-banner { background: #F4EECB; border-bottom: 1px solid #e8dfa8; padding: 12px 40px; display: flex; align-items: center; gap: 10px; font-size: .82rem; color: #5a4a00; }
+  .special-banner strong { font-weight: 600; }
+  .special-tag { position: absolute; top: 14px; right: 14px; background: #F4EECB; color: #7a5a00; padding: 3px 9px; border-radius: 100px; font-size: .68rem; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; }
+  .contact-bar { background: var(--forest); color: #fff; padding: 48px 40px; }
+  .contact-bar-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 40px; }
+  .contact-bar-left h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 500; margin-bottom: 6px; }
+  .contact-bar-left p { font-size: .9rem; color: rgba(255,255,255,.65); }
+  .contact-bar-right { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+  .contact-links { display: flex; gap: 24px; align-items: center; }
+  .contact-links a { color: rgba(255,255,255,.8); font-size: .88rem; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color var(--ease); }
+  .contact-links a:hover { color: #fff; }
+  .contact-apply { background: var(--clay); color: #fff; padding: 12px 28px; border-radius: 8px; font-weight: 600; font-size: .88rem; text-decoration: none; transition: background var(--ease); white-space: nowrap; }
+  .contact-apply:hover { background: var(--clay-dark); color: #fff; }
+  @media (max-width: 720px) {
+    .contact-bar { padding: 36px 20px; }
+    .contact-bar-inner { grid-template-columns: 1fr; gap: 24px; }
+    .contact-bar-right { align-items: flex-start; }
+    .contact-links { flex-direction: column; gap: 10px; align-items: flex-start; }
+  }
+
+  @media (max-width: 720px) {
+    nav { padding: 0 16px; gap: 12px; }
+    .nav-logo svg { height: 18px; }
+    .nav-right { gap: 12px; }
+    .nav-right a:not(.nav-cta) { display: none; }
+    .nav-cta { padding: 8px 14px; font-size: .75rem !important; }
+    .hero, .filter-bar, .grid-section { padding-left: 16px; padding-right: 16px; }
+    .hero { grid-template-columns: 1fr; }
+    .modal-content { padding: 24px 20px 40px; }
+    .modal-body { grid-template-columns: 1fr; }
+    .modal-header { flex-direction: column; gap: 12px; }
+    .modal-price-block { text-align: left; }
+    .modal-specs { font-size: .85rem; }
+    .spec-val { font-size: 1rem; }
+    .modal-gallery { height: 320px; }
+    .unit-grid-inner { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://culdesac.com" class="nav-logo">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1495.18 253.08"><defs><style>.cls-1{fill:var(--forest);stroke-width:0px;}</style></defs><path class="cls-1" d="M458.57,181.19c5-7.92,7.64-10.55,12.64-10.55,8.51,0,10.55,5.88,10.55,16.45v2.06c-.58,19.09-4.1,27.9-12.92,34.37-10.87,7.92-33.79,13.51-57.28,13.51-70.77-.03-108.95-53.48-108.95-107.23s39.35-109.26,113.67-109.26c20.84,0,39.64,4.41,49.63,10.55,12.34,7.63,12.34,14.39,12.34,28.48v2.94c0,14.68-2.06,19.97-9.99,19.97-6.75,0-8.81-2.94-12.33-8.81-3.81-6.17-8.52-15.83-19.68-24.09-8.02-5.82-17.69-8.91-27.6-8.81-36.43,0-62.85,35.83-62.85,84.88,0,3.23,0,6.46.29,9.7,3.81,54.63,34.37,79.88,64.91,79.88,6.14.09,12.23-1.08,17.89-3.46,5.66-2.38,10.77-5.9,15-10.34,6.17-6.37,10.28-12.9,14.68-20.24Z"/><path class="cls-1" d="M662.18,217.91c0,3.81-2.35,6.16-8.81,7.63-11.67,2.67-23.15,6.11-34.37,10.29-1.87.76-3.86,1.15-5.87,1.17-4.12,0-7.64-2.06-7.64-8.81v-16.74c0-.59-.29-1.17-.88-1.17-.29,0-.58,0-1.17.88-5.22,8-12.36,14.56-20.78,19.08-8.42,4.52-17.83,6.84-27.39,6.77-15.26,0-29.95-6.17-39.06-18.8-7.34-10.28-9.68-23.5-9.68-40.24v-45.24c0-10.55,0-16.73-2.35-21.44-2.06-4.1-5.28-6.16-10.28-7.92-3.23-1.17-8.23-2.93-8.23-7.04,0-3.81,2.35-5.87,9.1-7.35,11.36-2.6,22.54-5.95,33.46-10.01,2.33-.99,4.82-1.59,7.35-1.75,3.81,0,7.04,2.06,7.04,8.81v91.64c0,20.85,10.28,31.43,27.32,31.43,8.09.15,15.9-2.92,21.73-8.52,9.99-9.99,13.8-27.02,13.8-64.32,0-13.19-.29-20.26-2.64-24.97-1.77-3.81-5.28-6.16-10.28-7.92-3.23-1.17-7.92-2.93-7.92-7.05,0-3.81,2.05-5.87,8.81-7.35,11.48-2.57,22.76-5.91,33.79-10,2.23-.99,4.61-1.58,7.05-1.75,3.83,0,7.04,2.06,7.04,8.81v95.45c0,10.55.59,17.03,2.64,21.44,1.75,3.83,4.99,6.17,10.28,8.23,3.54,1.48,7.94,2.65,7.94,6.77Z"/><path class="cls-1" d="M748.54,227.3c0,4.41-4.41,6.46-9.68,6.46h-56.39c-5.28,0-9.68-2.06-9.68-6.46,0-3.52,2.64-5.58,6.16-7.64,4.7-2.64,8.52-6.16,10.28-10.28,2.06-4.41,3.52-10.87,3.52-31.14v-108.08c0-10.55,0-17.04-2.35-21.45-2.04-3.81-4.99-6.16-10.28-8.22-3.52-1.46-7.92-3.23-7.92-7.04,0-3.52,2.06-5.87,8.81-7.35,9.87-1.99,19.58-4.74,29.02-8.22,5.58-2.06,8.22-3.52,11.74-3.52,4.12,0,7.06,2.06,7.06,8.81v155.07c0,20.26,1.46,26.73,3.52,30.85,2.36,4.32,5.8,7.96,9.99,10.55,3.55,2.36,6.19,4.13,6.19,7.65Z"/><path class="cls-1" d="M923.49,217.91c0,3.81-2.06,5.58-9.1,7.33-11.57,2.7-22.95,6.13-34.08,10.28-2.05.87-4.23,1.37-6.45,1.48-3.54,0-6.75-2.06-6.75-8.81v-13.81c0-2.04-.88-2.64-2.06-2.64-.48.04-.94.19-1.35.45-.41.25-.75.6-1,1.02-11.46,14.1-28.5,23.75-47.3,23.75-9.1-.08-18.05-2.3-26.14-6.46-24.09-12.33-34.37-38.47-34.37-65.2,0-46.99,29.96-88.12,73.43-88.12,12.72.16,25.21,3.38,36.41,9.39.36.22.79.33,1.21.32.18-.02.35-.07.5-.15.16-.08.29-.2.4-.34.11-.14.19-.3.24-.47.05-.17.06-.35.04-.52v-15.22c0-10.55-.3-17.05-2.64-21.74-1.75-3.52-4.41-5.87-9.99-7.92-4.1-1.46-8.22-3.23-8.22-7.04s2.06-5.58,8.81-7.35c10.45-2.39,20.73-5.45,30.78-9.17,5-1.75,6.75-2.64,9.99-2.64,3.83,0,6.75,2.06,6.75,8.81v158.06c0,10.55,0,17.32,2.35,21.73,2.06,3.83,5.28,5.87,10.29,7.92,3.81,1.49,8.22,3.54,8.22,7.07ZM867.1,154.75c0-37.59-15.57-58.73-37.6-58.73-23.75,0-37.31,22.32-37.31,56.98s14.99,57.56,38.26,57.56c19.67,0,36.65-16.45,36.65-55.81Z"/><path class="cls-1" d="M1065.69,201.45c0,6.16-8.8,15.83-18.78,22.32-12.64,8.22-29.02,12.92-45.53,12.92-27.61,0-55.21-12.92-67.28-44.34-3.63-9.88-5.52-20.32-5.58-30.85,0-29.37,14.09-59.62,42.59-75.48,10.63-5.83,22.57-8.86,34.7-8.81,15.28,0,29.96,4.7,41.41,14.09,15.57,12.93,21.44,30.55,21.44,43.18s-3.81,20.26-24.07,20.26h-74.91c-2.35,0-3.54,1.17-3.54,3.23,0,4.7.59,19.97,10.29,33.48,9.99,13.8,24.08,18.8,38.18,18.8,27.31,0,37.01-14.99,44.93-14.99.82-.02,1.63.12,2.39.43.76.3,1.44.76,2.02,1.34.58.58,1.03,1.27,1.33,2.03.3.76.44,1.57.42,2.39h0ZM969.39,136.55h40.9c14.68,0,21.73-3.52,21.73-14.39,0-12.33-10.28-26.73-29.37-26.73-27.31,0-36.12,31.43-36.12,38.18-.09,2.35.49,2.94,2.84,2.94h.03Z"/><path class="cls-1" d="M1089.14,180.31c6.47,0,9.1,5.28,17.03,15.57,10.87,14.39,22.62,21.73,34.96,21.73,17.03,0,27.02-9.39,27.02-20.27,0-7.04-3.52-13.8-16.16-18.8-14.98-5.91-39.33-9.97-54.64-23.19-8.22-7.06-12.34-17.34-12.34-28.19,0-15.28,8.52-31.66,25.86-41.43,11.15-6.16,24.37-8.51,36.7-8.51,15.28,0,28.79,3.52,35.25,7.64,10.27,6.16,11.45,16.74,11.45,24.38s-.88,17.61-9.1,17.61c-5.28,0-7.34-1.46-10.56-6.75-5.58-8.81-14.69-24.08-33.19-24.08-14.39,0-23.5,8.51-23.5,18.79,0,9.7,7.64,15.28,22.32,19.97,18.8,6.17,38.18,10.29,50.8,23.75,7.05,7.46,10.94,17.34,10.87,27.6,0,13.81-6.76,28.79-22.03,38.77-12.91,8.81-28.77,12.04-43.46,12.04-20.86,0-39.66-6.46-47.59-13.51-6.17-5.88-9.1-17.92-9.1-30.25,0-10.82,4.69-12.88,9.38-12.88Z"/><path class="cls-1" d="M1359.79,218.8c0,2.23-.73,4.39-2.06,6.17-4.7,7.05-14.69,12.05-25.25,12.05-11.16,0-22.92-6.46-25.85-23.75,0-.29-1.17-.29-1.17-.29-11.16,16.45-30.26,24.09-48.18,24.09-23.75,0-46.18-13.81-46.18-38.48,0-12.63,6.46-25.84,19.68-34.06,14.98-9.41,34.31-13.51,49.05-20.26,16.14-7.64,23.5-16.16,23.5-27.32,0-8.51-4.7-16.74-15.28-19.67-2.4-.6-4.86-.9-7.34-.88-7.86.05-15.45,2.85-21.45,7.92-9.4,7.92-13.51,17.34-17.62,22.03-2.36,2.93-4.71,4.1-9.11,4.1-7.63,0-9.69-6.75-9.69-16.44,0-7.64,1.47-17.34,5.28-22.03,4.11-5.28,12.93-9.1,23.21-11.45,9.64-2.16,19.49-3.24,29.38-3.23,35.84,0,61.08,19.97,61.08,50.23,0,21.11-1.17,44.05-1.17,62.26,0,15.28,1.77,23.5,8.22,23.5,1.47,0,3.23-.29,5-.29.79-.06,1.57.06,2.31.33.74.27,1.41.7,1.97,1.25.56.55,1,1.22,1.28,1.95.28.73.41,1.52.37,2.3h0ZM1303.41,153.89c.02-.12,0-.24-.04-.35-.04-.11-.1-.22-.19-.3-.09-.08-.19-.15-.3-.19-.12-.04-.24-.05-.35-.03-.32-.01-.64.09-.88.29-9.69,7.04-25.85,11.16-38.18,19.67-9.39,6.46-12.93,14.7-12.93,22.03,0,12.33,9.12,19.68,20.57,19.68,5.74-.12,11.34-1.82,16.16-4.94,4.82-3.11,8.68-7.51,11.15-12.69,4.71-9.99,5-20.56,5-37.3v-5.88Z"/><path class="cls-1" d="M1433.72,237c-27.03,0-54.09-13.19-64.92-44.35-3-8.79-4.48-18.02-4.39-27.31,0-29.02,13.51-61.1,42.58-77.84,11.45-6.75,25.26-10.28,40.24-10.28,12.03,0,29.36,2.64,37.29,11.16,4.7,4.7,5.87,12.92,5.87,19.67.1,3.84-.2,7.68-.88,11.46-1.17,5.58-3.82,8.22-9.68,8.22-3.52,0-5.58-1.77-7.92-4.99-2.33-3.22-6.17-10.87-10.56-16.16-5.27-6.16-12.33-10.87-22.61-10.87-22.62,0-36.94,22.63-36.94,51.7,0,10.55,1.75,24.08,5.27,32.6,10.85,27.02,29.95,31.43,42.87,31.43s24.67-7.05,31.43-12.05c3.23-2.35,5.58-3.81,7.91-3.81,1.56,0,3.05.62,4.15,1.72,1.1,1.1,1.73,2.59,1.73,4.15-.18,2.87-1.2,5.62-2.93,7.92-11.83,17.35-33.85,27.63-58.52,27.63Z"/><path class="cls-1" d="M248.95,131.83l-72.75,18.31c-.88.22-1.29,1.22-.83,2l25.39,42.47c2.39,4-2.15,8.54-6.15,6.15l-42.47-25.39c-.78-.46-1.78-.05-2,.83l-18.31,72.75c-1.38,5.5-9.2,5.5-10.58,0l-18.31-72.75c-.22-.88-1.22-1.29-2-.83l-42.47,25.39c-4,2.39-8.54-2.15-6.15-6.15l25.39-42.47c.46-.78.05-1.78-.83-2L4.12,131.83c-5.5-1.38-5.5-9.2,0-10.58l72.75-18.31c.88-.22,1.29-1.22.83-2l-25.39-42.47c-2.39-4,2.15-8.54,6.15-6.15l42.47,25.39c.78.46,1.78.05,2-.83L121.25,4.12c1.38-5.5,9.2-5.5,10.58,0l18.31,72.75c.22.88,1.22,1.29,2,.83l42.47-25.39c4-2.39,8.54,2.15,6.15,6.15l-25.39,42.47c-.46.78-.05,1.78.83,2l72.75,18.31c5.5,1.38,5.5,9.2,0,10.58ZM149.2,126.54c0-12.52-10.15-22.67-22.67-22.67s-22.67,10.15-22.67,22.67,10.15,22.67,22.67,22.67,22.67-10.15,22.67-22.67Z"/></svg>
+</a>
+  <div class="nav-right">
+    <a href="https://culdesac.com/tempe">Tempe</a>
+    <a href="https://culdesac.com/tempe/living">Living</a>
+    <a href="tel:4802106004">(480) 210-6004</a>
+    <a href="https://culdesac.com/tempe/apply" class="nav-cta">Apply Now</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="hero-eyebrow">Culdesac Tempe · Tempe, AZ</div>
+    <h1>Find your<br><em>perfect unit.</em></h1>
+    <p class="hero-sub">Car-free living in the heart of Tempe. Walk to light rail, local restaurants, and everything you need.</p>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <span class="filter-label">Filter:</span>
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="studio">Studio</button>
+  <button class="filter-btn" data-filter="1bed">1 Bed</button>
+  <button class="filter-btn" data-filter="2bed">2 Bed</button>
+  <div class="filter-divider"></div>
+  <button class="filter-btn" data-filter="balcony">Has Balcony</button>
+  <div class="filter-divider"></div>
+  <select class="sort-select" id="sort-select">
+    <option value="price-asc">Price: Low → High</option>
+    <option value="price-desc">Price: High → Low</option>
+    <option value="sqft-desc">Largest First</option>
+    <option value="sqft-asc">Smallest First</option>
+    <option value="name">A → Z</option>
+  </select>
+</div>
+
+<div class="special-banner">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+  <span><strong>Limited-time offer:</strong> Apply before Sunday for 4 weeks free rent on select units.</span>
+</div>
+
+<div class="grid-section">
+  <div class="results-meta" id="results-meta"></div>
+  <div class="unit-grid" id="unit-grid"></div>
+</div>
+
+<div class="contact-bar">
+  <div class="contact-bar-inner">
+    <div class="contact-bar-left">
+      <h3>Ready to find your home?</h3>
+      <p>Our leasing team is here to help — reach out anytime.</p>
+    </div>
+    <div class="contact-bar-right">
+      <div class="contact-links">
+        <a href="tel:4802106004">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          (480) 210-6004
+        </a>
+        <a href="/cdn-cgi/l/email-protection#3f5356495a7f5c4a535b5a4c5e5c115c5052">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span class="__cf_email__" data-cfemail="ddb1b4abb89dbea8b1b9b8aebcbef3beb2b0">[email&#160;protected]</span>
+        </a>
+      </div>
+      <a href="https://culdesac.com/tempe/apply" class="contact-apply">Apply Now →</a>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+    <div class="modal-gallery" id="modal-gallery">
+      <button class="modal-close" id="modal-close">✕</button>
+      <div class="gallery-slides" id="gallery-slides"></div>
+      <button class="gallery-arrow prev" id="gallery-prev">‹</button>
+      <button class="gallery-arrow next" id="gallery-next">›</button>
+      <div class="gallery-dots" id="gallery-dots"></div>
+      <div class="gallery-label" id="gallery-label"></div>
+    </div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <div class="modal-type" id="modal-type"></div>
+          <div class="modal-name" id="modal-name"></div>
+        </div>
+        <div class="modal-price-block">
+          <div class="modal-from">Starting from</div>
+          <div class="modal-price-big" id="modal-price"></div>
+          <div class="modal-price-mo" id="modal-price-suffix"></div>
+        </div>
+      </div>
+      <div class="modal-specs" id="modal-specs"></div>
+      <div id="modal-special-note" style="display:none;background:#F4EECB;border-radius:8px;padding:12px 16px;margin-bottom:20px;align-items:center;gap:10px;font-size:.82rem;color:#5a4a00;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span><strong>Special offer:</strong> Apply before Sunday for 4 weeks free rent on this unit.</span>
+      </div>
+      <div class="modal-body">
+        <div>
+          <p class="section-title">Availability</p>
+          <div class="avail-list" id="modal-avail-list"></div>
+          <p class="section-title" style="margin-top:28px;">Included Features</p>
+          <div class="features-grid" id="modal-features"></div>
+        </div>
+        <div>
+          <p class="section-title">Floor Plan</p>
+          <div id="modal-floorplan-img-wrap" style="border-radius:10px;overflow:hidden;background:var(--sand);aspect-ratio:1/.75;display:flex;align-items:center;justify-content:center;">
+            <img id="modal-fp-img" src="" alt="Floor plan" style="width:100%;height:100%;object-fit:contain;padding:0;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ════════════════════════════════════════════════════════════
+   RENTCAFE API CONFIG
+   ════════════════════════════════════════════════════════════ */
+const API = {
+  key:          null,              // ← paste RentCafe API key here
+  base:         'https://basic.rentcafeapi.com',
+  propertyCode: 'CULDESAC01',      // ← update with real propertyCode
+};
+
+/* ════════════════════════════════════════════════════════════
+   IMAGE PATH HELPER
+   All floorplan images live in ./images/ 
+   ════════════════════════════════════════════════════════════ */
+const IMG = (filename) => `./images/${filename}`;
+
+/* ════════════════════════════════════════════════════════════
+   FLOORPLAN DATA
+   Sourced from: Culdesac_Tempe_Floorplans CSV + image filenames
+   
+   Image filename → floorplan name mapping:
+   ─────────────────────────────────────────
+   Acacia - Private Balcony 984 sq ft.jpg    → Acacia (balcony variant)
+   Acacia 984 sq ft.jpg                      → Acacia (standard)
+   Agave - Private Balcony 688 sq ft_2026.jpg → Agave (balcony variant)
+   Agave A.jpg                               → Agave A variant
+   barbary fig (combined).jpg                → Barbary Fig
+   chaparral.jpg                             → Chaparral
+   Chicory - Semi-private Patio 908 sq ft.jpg → Chicory
+   Cholla 664 sq ft.jpg                      → Cholla (standard)
+   cholla a 656 sq ft.jpg                    → Cholla A variant
+   cholla B 664 sq ft.jpg                    → Cholla B variant
+   cholla c private balcony  664 sq ft.jpg   → Cholla C (balcony)
+   Chuparosa 512 sq ft.jpg                   → Chuparosa
+   Desert Lily - 967-1021 SF.jpg             → Desert Lily
+   golden barrel - Private Balcony.jpg       → Golden Barrel
+   Ironwood w_ sq ft.jpg                     → Ironwood
+   Marigold (no balcony) 635 sq ft.jpg       → Marigold (no balcony variant)
+   Marigold 635 sq ft.jpg                    → Marigold (standard)
+   Mariposa - 546 sq ft.jpg                  → Mariposa
+   Mesquite -  880 sq ft.jpg                 → Mesquite
+   Ocotillo - Private Balcony 648 sq ft.jpg  → Ocotillo (balcony variant)
+   Ocotillo 648 sq ft.jpg                    → Ocotillo (standard)
+   Palo Verde - Private Balcony 1035 sq ft.jpg → Palo Verde (balcony)
+   Palo Verde 1035 sq ft.jpg                 → Palo Verde (standard)
+   prickly pear.jpg                          → Prickly Pear
+   Saguaro 902 sg ft.jpg                     → Saguaro
+   Senita w_ sq ft.jpg                       → Senita
+   Yucca 850 sq ft_2026.jpg                  → Yucca
+   ════════════════════════════════════════════════════════════ */
+const FLOORPLANS = [
+
+  // NOTE: Prickly-Pear-1031.jpg, Yucca-3051.jpg, Saguaro-2045-(1st-floor).jpg,
+  // Saguaro-2045-(2nd-floor).jpg, Ironwood-A-2057.jpg, Ironwood-B-3057.jpg,
+  // Mesquite-3043.jpg, Senita-(3035,-3053).jpg, Chuparosa-(2039,-2037,-2035,-2033,-2053,-2055).jpg
+  // — all dollhouse files on hand, add to variants when those units become available
+
+  /* ── STUDIOS ──────────────────────────────────────── */
+  {
+    id: 'marigold',
+    name: 'Marigold',
+    type: 'studio',
+    beds: 0, baths: 1, sqft: 635,
+    priceFrom: 1614,
+    balcony: false,
+    special: true,
+    unitCount: 1,
+    variants: [
+      { label: 'Dollhouse View', img: IMG('Marigold-(2005,-3005,-2003,-3003,-2011,-3011,-2013,-3013).jpg'), isFP: true },
+      { label: 'Interior 1',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-38.jpg') },
+      { label: 'Interior 2',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-39.jpg') },
+      { label: 'Interior 3',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-40.jpg') },
+      { label: 'Interior 4',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-41.jpg') },
+      { label: 'Interior 5',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-42.jpg') },
+      { label: 'Interior 6',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-43.jpg') },
+      { label: 'Interior 7',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-44.jpg') },
+      { label: 'Interior 8',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-45.jpg') },
+      { label: 'Interior 9',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-46.jpg') },
+      { label: 'Interior 10', img: IMG('interior-photos/marigold/2025 E Apache Blvd-47.jpg') },
+      { label: 'Interior 11', img: IMG('interior-photos/marigold/2025 E Apache Blvd-48.jpg') },
+      { label: 'Interior 12', img: IMG('interior-photos/marigold/2025 E Apache Blvd-49.jpg') },
+      { label: 'Interior 13', img: IMG('interior-photos/marigold/2025 E Apache Blvd-50.jpg') },
+      { label: 'Floor Plan',  img: IMG('Marigold (no balcony) 635 sq ft.jpg'), isFP: true },
+    ],
+    features: ['Full kitchen','Open layout','In-unit W/D','Bike storage','Keyless entry','Nest thermostat'],
+    availableUnits: [
+      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1614 },
+    ],
+    status: 'available',
+  },
+  {
+    id: 'marigold-balcony',
+    name: 'Marigold — Private Balcony',
+    type: 'studio',
+    beds: 0, baths: 1, sqft: 635,
+    priceFrom: 1776,
+    balcony: true,
+    special: true,
+    unitCount: 1,
+    variants: [
+      { label: 'Dollhouse View', img: IMG('Marigold-(2005,-3005,-2003,-3003,-2011,-3011,-2013,-3013).jpg'), isFP: true },
+      { label: 'Interior 1',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-38.jpg') },
+      { label: 'Interior 2',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-39.jpg') },
+      { label: 'Interior 3',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-40.jpg') },
+      { label: 'Interior 4',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-41.jpg') },
+      { label: 'Interior 5',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-42.jpg') },
+      { label: 'Interior 6',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-43.jpg') },
+      { label: 'Interior 7',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-44.jpg') },
+      { label: 'Interior 8',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-45.jpg') },
+      { label: 'Interior 9',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-46.jpg') },
+      { label: 'Interior 10', img: IMG('interior-photos/marigold/2025 E Apache Blvd-47.jpg') },
+      { label: 'Interior 11', img: IMG('interior-photos/marigold/2025 E Apache Blvd-48.jpg') },
+      { label: 'Interior 12', img: IMG('interior-photos/marigold/2025 E Apache Blvd-49.jpg') },
+      { label: 'Interior 13', img: IMG('interior-photos/marigold/2025 E Apache Blvd-50.jpg') },
+      { label: 'Floor Plan',  img: IMG('Marigold 635 sq ft.jpg'), isFP: true },
+    ],
+    features: ['Private balcony','Full kitchen','Open layout','In-unit W/D','Bike storage','Nest thermostat'],
+    availableUnits: [
+      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1776 },
+    ],
+    status: 'available',
+  },
+
+  /* ── 1 BEDROOM ────────────────────────────────────── */
+  {
+    id: 'barbary-fig',
+    name: 'Barbary Fig',
+    type: '1bed',
+    beds: 1, baths: 1, sqft: null,
+    priceFrom: 1580,
+    balcony: false,
+    special: false,
+    unitCount: 1,
+    variants: [
+      { label: '1st Floor',   img: IMG('Unit-12-Barbary-Fig-C-1st-Floor.jpg'), isFP: true },
+      { label: '2nd Floor',   img: IMG('Unit-12-Barbary-Fig-C-2nd-Floor.jpg'), isFP: true },
+      { label: 'Interior 1',  img: IMG('interior-photos/barbary fig/Barbary Fig A 1BR, 1BA - 638SF.jpg') },
+      { label: 'Interior 2',  img: IMG('interior-photos/barbary fig/Barbary Fig A 1BR, 1BA - 638SF 2.jpg') },
+      { label: 'Interior 3',  img: IMG('interior-photos/barbary fig/Barbary Fig A 1BR, 1BA - 638SF 3.jpg') },
+      { label: 'Interior 4',  img: IMG('interior-photos/barbary fig/Barbary Fig A 1BR, 1BA - 638SF 4.jpg') },
+      { label: 'Floor Plan',  img: IMG('barbary fig (combined).jpg'), isFP: true },
+    ],
+    features: ['Combined unit layout','Open kitchen','In-unit W/D','Bike storage','Keyless entry','Nest thermostat'],
+    availableUnits: [
+      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1580 },
+    ],
+    status: 'available',
+  },
+  {
+    id: 'agave',
+    name: 'Agave',
+    type: '1bed',
+    beds: 1, baths: 1, sqft: 688,
+    priceFrom: 1650,
+    balcony: true,
+    special: false,
+    unitCount: 2,
+    variants: [
+      { label: 'Dollhouse View', img: IMG('Unit-6-Agave-A.jpg'), isFP: true },
+      { label: 'Floor Plan',     img: IMG('Agave - Private Balcony 688 sq ft_2026.jpg'), isFP: true },
+    ],
+    features: ['Private balcony option','Open layout','In-unit W/D','Quartz countertops','Bike storage','Nest thermostat'],
+    availableUnits: [
+      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1650 },
+    ],
+    status: 'available',
+  },
+  {
+    id: 'agave-patio',
+    name: 'Agave — Semi-private Patio',
+    type: '1bed',
+    beds: 1, baths: 1, sqft: 688,
+    priceFrom: 1580,
+    balcony: true,
+    special: false,
+    unitCount: 3,
+    variants: [
+      { label: 'Dollhouse View',     img: IMG('Unit-6-Agave-A.jpg'), isFP: true },
+      { label: 'Semi-private Patio', img: IMG('Agave - Private Balcony 688 sq ft_2026.jpg'), isFP: true },
+    ],
+    features: ['Semi-private patio','Open layout','In-unit W/D','Quartz countertops','Bike storage','Nest thermostat'],
+    availableUnits: [
+      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1580 },
+    ],
+    status: 'available',
+  },
+  {
+    id: 'cholla',
+    name: 'Cholla',
+    type: '1bed',
+    beds: 1, baths: 1, sqft: 664,
+    priceFrom: 1590,
+    balcony: false,
+    special: false,
+    unitCount: 1,
+    variants: [
+      { label: 'Dollhouse View', img: IMG('Cholla-A-2043.jpg'), isFP: true },
+      { label: 'Interior 1',  img: IMG('interior-photos/cholla/IMG_6096-Enhanced-NR.jpg') },
+      { label: 'Interior 2',  img: IMG('interior-photos/cholla/IMG_6099.jpg') },
+      { label: 'Interior 3',  img: IMG('interior-photos/cholla/IMG_6108.jpg') },
+      { label: 'Interior 4',  img: IMG('interior-photos/cholla/IMG_6109.jpg') },
+      { label: 'Interior 5',  img: IMG('interior-photos/cholla/IMG_6116.jpg') },
+      { label: 'Interior 6',  img: IMG('interior-photos/cholla/IMG_6120.jpg') },
+      { label: 'Interior 7',  img: IMG('interior-photos/cholla/IMG_8661.jpg') },
+      { label: 'Floor Plan',  img: IMG('Cholla 664 sq ft.jpg'), isFP: true },
+    ],
+    features: ['Multiple layout options','Open kitchen','In-unit W/D','Bike storage','Keyless entry','Quartz countertops'],
+    availableUnits: [
+      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1590 },
+    ],
+    status: 'available',
+  },
+  {
+    id: 'ocotillo-furnished',
+    name: 'Ocotillo — Private Balcony',
+    type: '1bed',
+    beds: 1, baths: 1, sqft: 648,
+    priceFrom: 1942,
+    balcony: true,
+    special: true,
+    unitCount: 1,
+    furnished: true,
+    variants: [
+      { label: 'Dollhouse View', img: IMG('Ocotillo-(2041,-2031,-2051,-2049,-2047).jpg'), isFP: true },
+      { label: 'Interior 1',  img: IMG('interior-photos/ocotillo/01-IMG_2533.jpg') },
+      { label: 'Interior 2',  img: IMG('interior-photos/ocotillo/02-IMG_2539.jpg') },
+      { label: 'Interior 3',  img: IMG('interior-photos/ocotillo/03-IMG_2545.jpg') },
+      { label: 'Interior 4',  img: IMG('interior-photos/ocotillo/04-IMG_2551.jpg') },
+      { label: 'Interior 5',  img: IMG('interior-photos/ocotillo/05-IMG_2557.jpg') },
+      { label: 'Interior 6',  img: IMG('interior-photos/ocotillo/06-IMG_2563.jpg') },
+      { label: 'Interior 7',  img: IMG('interior-photos/ocotillo/07-IMG_2569.jpg') },
+      { label: 'Interior 8',  img: IMG('interior-photos/ocotillo/08-IMG_2575.jpg') },
+      { label: 'Interior 9',  img: IMG('interior-photos/ocotillo/09-IMG_2581.jpg') },
+      { label: 'Interior 10', img: IMG('interior-photos/ocotillo/10-IMG_2587.jpg') },
+      { label: 'Floor Plan',  img: IMG('Ocotillo - Private Balcony 648 sq ft.jpg'), isFP: true },
+    ],
+    features: ['Fully furnished','Private balcony','Open kitchen','In-unit W/D','Bike storage','Quartz countertops'],
+    availableUnits: [
+      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1942, furnished: true },
+    ],
+    status: 'available',
+  },
+
+  /* ── 2 BEDROOM ────────────────────────────────────── */
+  {
+    id: 'desert-lily',
+    name: 'Desert Lily',
+    type: '2bed',
+    beds: 2, baths: 2, sqft: '967–1021',
+    priceFrom: 2270,
+    balcony: false,
+    special: false,
+    unitCount: 2,
+    variants: [
+      { label: '1st Floor',  img: IMG('Unit-9-Desert-Lily-1st-Floor-Bed.jpg'), isFP: true },
+      { label: '2nd Floor',  img: IMG('Unit-9-Desert-Lily-2nd-Floor.jpg'), isFP: true },
+      { label: 'Floor Plan', img: IMG('Desert Lily - 967-1021 SF.jpg'), isFP: true },
+    ],
+    features: ['Two full baths','Variable sq ft','In-unit W/D','Quartz countertops','Bike storage','Nest thermostat'],
+    availableUnits: [
+      { unit: 'Contact leasing', moveIn: 'Available Now', price: 2270 },
+    ],
+    status: 'available',
+  },
+  {
+    id: 'acacia',
+    name: 'Acacia',
+    type: '2bed',
+    beds: 2, baths: 1, sqft: 984,
+    priceFrom: 2520,
+    balcony: true,
+    special: false,
+    unitCount: 1,
+    variants: [
+      { label: 'Dollhouse View', img: IMG('Acacia-(2007,-3007,-2009,-3009,-2015,-3015).jpg'), isFP: true },
+      { label: 'Floor Plan',     img: IMG('Acacia 984 sq ft.jpg'), isFP: true },
+    ],
+    features: ['Private balcony option','Spacious layout','In-unit W/D','Quartz countertops','Bike storage','Nest thermostat'],
+    availableUnits: [
+      { unit: 'Contact leasing', moveIn: 'Available Now', price: 2520 },
+    ],
+    status: 'available',
+  },
+];
+
+/* ════════════════════════════════════════════════════════════
+   RENTCAFE API (fires when key is set)
+   ════════════════════════════════════════════════════════════ */
+async function fetchRC(endpoint, body = {}) {
+  const res = await fetch(`${API.base}${endpoint}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${API.key}` },
+    body: JSON.stringify({ propertyCode: API.propertyCode, ...body }),
+  });
+  if (!res.ok) throw new Error(`${endpoint} → ${res.status}`);
+  return res.json();
+}
+
+async function mergeApiData() {
+  try {
+    const [fps, avail] = await Promise.all([
+      fetchRC('/floorplan/getfloorplans'),
+      fetchRC('/apartmentavailability/getapartmentavailability'),
+    ]);
+    // Map RentCafe floorplan names → our FLOORPLANS array
+    // Adapt the field names below to match actual API response shape
+    fps.forEach(fp => {
+      const match = FLOORPLANS.find(f =>
+        f.name.toLowerCase() === (fp.FloorplanName || '').toLowerCase()
+      );
+      if (match) {
+        if (fp.MinimumRent) match.priceFrom = parseFloat(fp.MinimumRent);
+      }
+    });
+    avail.forEach(unit => {
+      const match = FLOORPLANS.find(f =>
+        f.name.toLowerCase() === (unit.FloorplanName || '').toLowerCase()
+      );
+      if (match) {
+        match.availableUnits.push({
+          unit:    unit.ApartmentName || unit.UnitId,
+          moveIn:  unit.AvailableDate || 'Contact leasing',
+          price:   parseFloat(unit.MinimumRent || unit.Rent || 0),
+        });
+        if (match.availableUnits.length > 0) match.status = 'available';
+      }
+    });
+    document.getElementById('api-banner') && (document.getElementById('api-banner').style.display = 'none');
+  } catch (e) {
+    console.warn('RentCafe API unavailable, using local data:', e.message);
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   STATE
+   ════════════════════════════════════════════════════════════ */
+let activeFilter  = 'all';
+let activeSort    = 'price-asc';
+let activeUnit    = null;
+let galleryIdx    = 0;
+let activeVariant = 0;
+
+/* ════════════════════════════════════════════════════════════
+   RENDER GRID
+   ════════════════════════════════════════════════════════════ */
+function bedLabel(b)  { return b === 0 ? 'Studio' : b === 1 ? '1 Bedroom' : '2 Bedroom'; }
+function bedShort(b)  { return b === 0 ? 'Studio' : `${b}bd`; }
+
+function getFiltered() {
+  let list = FLOORPLANS.filter(u => u.status === 'available');
+  if (activeFilter === 'studio')  list = list.filter(u => u.type === 'studio');
+  if (activeFilter === '1bed')    list = list.filter(u => u.type === '1bed');
+  if (activeFilter === '2bed')    list = list.filter(u => u.type === '2bed');
+  if (activeFilter === 'balcony') list = list.filter(u => u.balcony);
+
+  list.sort((a,b) => {
+    const sqA = typeof a.sqft === 'string' ? parseInt(a.sqft) : (a.sqft || 0);
+    const sqB = typeof b.sqft === 'string' ? parseInt(b.sqft) : (b.sqft || 0);
+    if (activeSort === 'price-asc')  return (a.priceFrom||99999) - (b.priceFrom||99999);
+    if (activeSort === 'price-desc') return (b.priceFrom||0) - (a.priceFrom||0);
+    if (activeSort === 'sqft-desc')  return sqB - sqA;
+    if (activeSort === 'sqft-asc')   return sqA - sqB;
+    if (activeSort === 'name')       return a.name.localeCompare(b.name);
+    return 0;
+  });
+  return list;
+}
+
+function cardHTML(u, i) {
+  const thumb = u.variants[0].img;
+  const sqftDisplay = u.sqft ? `${u.sqft} sq ft` : 'Sq ft TBD';
+  const bathDisplay = u.baths === 1.5 ? '1.5 ba' : `${u.baths} ba`;
+  const priceDisplay = u.priceFrom
+    ? `<span class="card-price-num">$${u.priceFrom.toLocaleString()}</span><span class="card-price-mo">/mo</span>`
+    : `<span class="card-price-tbd">Contact for pricing</span>`;
+  const badgeText = u.unitCount === 1 ? 'Only 1 Unit Left!' : `${u.unitCount} Units Available`;
+  const badgeCls  = u.unitCount === 1 ? 'avail-soon' : '';
+  return `
+  <div class="unit-card" data-id="${u.id}" style="animation-delay:${i*50}ms">
+    <div class="card-img">
+      <img src="${thumb}" alt="${u.name}" loading="eager" onerror="this.classList.add('error-img');this.src='data:image/svg+xml,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'80\\' height=\\'80\\' viewBox=\\'0 0 24 24\\'><path fill=\\' %23ccc\\' d=\\'M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-1 14H6l3.5-4.5 2.5 3.01L15 11l3 5z\\'/></svg>'">
+      <div class="card-badge ${badgeCls}">${badgeText}</div>
+      ${u.special ? `<div class="special-tag">★ Special offer</div>` : ''}
+      ${!u.special && u.furnished ? `<div class="card-variant-count">Furnished</div>` : ''}
+    </div>
+    <div class="card-body">
+      <div class="card-type">${bedLabel(u.beds)}</div>
+      <div class="card-name">${u.name}</div>
+      <div class="card-meta">
+        <span class="card-meta-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V8l9-6 9 6v14H3z"/></svg>
+          ${u.beds === 0 ? 'Studio' : `${u.beds} bd · ${bathDisplay}`}
+        </span>
+        <span class="card-meta-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+          ${sqftDisplay}
+        </span>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          ${priceDisplay}
+        </div>
+        <button class="card-cta">View Details</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function render() {
+  const list = getFiltered();
+  document.getElementById('results-meta').innerHTML =
+    `Showing <strong>${list.length}</strong> available floor plan${list.length !== 1 ? 's' : ''}`;
+
+  const grid = document.getElementById('unit-grid');
+
+  if (activeFilter !== 'all') {
+    grid.classList.remove('grouped');
+    grid.innerHTML = list.map((u, i) => cardHTML(u, i)).join('');
+  } else {
+    grid.classList.add('grouped');
+    const groups = [
+      { key: 'studio', label: 'Studio' },
+      { key: '1bed',   label: '1 Bedroom' },
+      { key: '2bed',   label: '2 Bedroom' },
+    ];
+    grid.innerHTML = groups.map(g => {
+      const units = list.filter(u => u.type === g.key);
+      if (!units.length) return '';
+      return `
+        <div class="type-section">
+          <div class="type-heading">${g.label}</div>
+          <div class="unit-grid-inner">
+            ${units.map((u, i) => cardHTML(u, i)).join('')}
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  document.querySelectorAll('.unit-card').forEach(c =>
+    c.addEventListener('click', () => openModal(c.dataset.id)));
+}
+
+/* ════════════════════════════════════════════════════════════
+   MODAL
+   ════════════════════════════════════════════════════════════ */
+let scrollY = 0;
+
+function openModal(id) {
+  activeUnit    = FLOORPLANS.find(u => u.id === id);
+  activeVariant = 0;
+  galleryIdx    = 0;
+  if (!activeUnit) return;
+  buildModal();
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+function buildModal() {
+  const u = activeUnit;
+
+  document.getElementById('modal-type').textContent = bedLabel(u.beds);
+  document.getElementById('modal-name').textContent  = u.name;
+
+  if (u.priceFrom) {
+    document.getElementById('modal-price').textContent = `$${u.priceFrom.toLocaleString()}`;
+    document.getElementById('modal-price-suffix').textContent = '/month';
+  } else {
+    document.getElementById('modal-price').textContent = 'Contact us';
+    document.getElementById('modal-price-suffix').textContent = 'for pricing';
+  }
+
+  const sqftTxt = u.sqft ? `${u.sqft} sq ft` : '—';
+  const bathTxt = u.baths === 1.5 ? '1.5' : String(u.baths);
+  document.getElementById('modal-specs').innerHTML = [
+    { label: 'Type',      val: u.beds === 0 ? 'Studio' : `${u.beds} Bed` },
+    { label: 'Bathrooms', val: bathTxt },
+    { label: 'Sq Ft',     val: sqftTxt },
+    { label: u.unitCount === 1 ? 'Availability' : 'Available', val: u.unitCount === 1 ? 'Only 1 Left!' : `${u.unitCount} Units` },
+  ].map(s => `<div class="modal-spec"><div class="spec-label">${s.label}</div><div class="spec-val">${s.val}</div></div>`).join('');
+
+  if (u.special) {
+    document.getElementById('modal-special-note').style.display = 'flex';
+  } else {
+    document.getElementById('modal-special-note').style.display = 'none';
+  }
+
+  // Gallery
+  buildGallery();
+  setGallery(0);
+
+  // Floorplan image (tied to active variant)
+  updateFloorplanImg();
+
+  // Available units
+  const applyBase = 'https://culdesac.com/tempe/apply/';
+  const availEl = document.getElementById('modal-avail-list');
+  if (u.availableUnits.length) {
+    availEl.innerHTML = u.availableUnits.map(av => `
+      <div class="avail-item">
+        <div>
+          <div class="avail-unit">Unit ${av.unit}${av.furnished ? ' · Furnished' : ''}</div>
+          <div class="avail-date">${av.moveIn}</div>
+        </div>
+        <div style="text-align:right">
+          ${av.price ? `<div class="avail-price">$${av.price.toLocaleString()}/mo</div>` : ''}
+          <button class="apply-btn" onclick="window.open('${applyBase}','_blank')">Apply</button>
+        </div>
+      </div>`).join('');
+  } else {
+    availEl.innerHTML = `
+      <p class="no-avail">No units currently listed — contact leasing for availability.</p>
+      <button class="waitlist-btn" onclick="window.open('https://culdesac.com/tempe/waitlist','_blank')">
+        Join the Waitlist →
+      </button>`;
+  }
+
+  // Features
+  document.getElementById('modal-features').innerHTML =
+    u.features.map(f => `<div class="feature-tag">${f}</div>`).join('');
+}
+
+function updateFloorplanImg() {
+  // Always show the 2D floor plan (last isFP variant) in the sidebar thumbnail
+  const fp = [...activeUnit.variants].reverse().find(v => v.isFP);
+  document.getElementById('modal-fp-img').src = fp ? fp.img : activeUnit.variants[activeUnit.variants.length - 1].img;
+}
+
+function buildGallery() {
+  const slides = document.getElementById('gallery-slides');
+  slides.innerHTML = activeUnit.variants.map((v, i) => `
+    <div class="gallery-slide">
+      <img src="${v.img}" alt="${v.label}" class="${v.isFP ? 'fp-img' : ''}" loading="${i===0?'eager':'lazy'}">
+    </div>`).join('');
+}
+
+function setGallery(idx) {
+  const slides = document.getElementById('gallery-slides');
+  const dots   = document.getElementById('gallery-dots');
+  const label  = document.getElementById('gallery-label');
+  galleryIdx = idx;
+  slides.style.transform = `translateX(-${idx * 100}%)`;
+  dots.innerHTML = activeUnit.variants.map((v, i) =>
+    `<button class="gdot ${i===idx?'active':''}" data-gi="${i}" aria-label="${v.label}"></button>`
+  ).join('');
+  document.querySelectorAll('.gdot').forEach(d =>
+    d.addEventListener('click', () => setGallery(+d.dataset.gi)));
+  label.textContent = `${idx+1} / ${activeUnit.variants.length}`;
+}
+
+/* ════════════════════════════════════════════════════════════
+   EVENTS
+   ════════════════════════════════════════════════════════════ */
+document.querySelectorAll('.filter-btn').forEach(btn =>
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    render();
+  }));
+
+document.getElementById('sort-select').addEventListener('change', e => {
+  activeSort = e.target.value;
+  render();
+});
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.getElementById('modal-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+});
+
+// Failsafe: always unlock scroll if modal is not visible
+document.addEventListener('visibilitychange', () => {
+  if (!document.getElementById('modal-overlay').classList.contains('open')) closeModal();
+});
+window.addEventListener('popstate', closeModal);
+
+document.getElementById('gallery-prev').addEventListener('click', e => {
+  e.stopPropagation();
+  const n = activeUnit.variants.length;
+  setGallery((galleryIdx - 1 + n) % n);
+  activeVariant = galleryIdx;
+  updateFloorplanImg();
+});
+document.getElementById('gallery-next').addEventListener('click', e => {
+  e.stopPropagation();
+  const n = activeUnit.variants.length;
+  setGallery((galleryIdx + 1) % n);
+  activeVariant = galleryIdx;
+  updateFloorplanImg();
+});
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('modal-overlay').classList.contains('open')) return;
+  if (e.key === 'Escape') closeModal();
+  const n = activeUnit.variants.length;
+  if (e.key === 'ArrowLeft')  { setGallery((galleryIdx-1+n)%n); activeVariant=galleryIdx; updateFloorplanImg(); }
+  if (e.key === 'ArrowRight') { setGallery((galleryIdx+1)%n);   activeVariant=galleryIdx; updateFloorplanImg(); }
+});
+
+/* ════════════════════════════════════════════════════════════
+   INIT
+   ══════════════════�
+   ═════════════════════════════════════════════════════════════ */
+
+render();
+</script>
+</body>
+</html>

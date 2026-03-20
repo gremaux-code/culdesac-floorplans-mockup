@@ -26,12 +26,12 @@
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'DM Sans', sans-serif; background: var(--warm-white); color: var(--charcoal); min-height: 100vh; }
-  #page-wrap { overflow-x: hidden; width: 100%; position: relative; }
+  .nav-logo svg { max-width: 140px; }
 
   /* NAV */
   nav {
     position: sticky; top: 0; z-index: 100;
-    background: rgba(253,250,245,.96); backdrop-filter: blur(12px);
+    background: rgba(253,250,245,.98);
     border-bottom: 1px solid var(--border);
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 40px; height: 64px;
@@ -46,18 +46,14 @@
   .nav-cta:hover { background: var(--clay-dark) !important; }
 
   /* HERO */
-  .hero { background: var(--forest); color: #fff; padding: 56px 40px 48px; display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 32px; }
+  .hero { background: var(--forest); color: #fff; padding: 56px 40px 48px; }
   .hero-eyebrow { font-size: .75rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 10px; }
   .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; line-height: 1.1; letter-spacing: -.5px; color: #F7F3F0; }
   .hero h1 em { color: #F7F3F0; font-style: normal; }
   .hero-sub { color: #E7F1F7; font-size: .95rem; margin-top: 14px; max-width: 480px; }
-  .hero-stats { display: flex; gap: 32px; }
-  .stat { text-align: right; }
-  .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 600; color: var(--clay); }
-  .stat-label { font-size: .72rem; color: rgba(255,255,255,.5); letter-spacing: .5px; text-transform: uppercase; }
 
   /* FILTER BAR */
-  .filter-bar { background: var(--sand); border-bottom: 1px solid var(--border); padding: 0 40px; display: flex; align-items: center; gap: 8px; overflow-x: auto; }
+  .filter-bar { background: var(--sand); border-bottom: 1px solid var(--border); padding: 8px 40px; display: flex; align-items: center; gap: 8px; overflow-x: auto; overscroll-behavior-x: contain; touch-action: pan-x; -webkit-overflow-scrolling: touch; }
   .filter-bar::-webkit-scrollbar { display: none; }
   .filter-label { font-size: .7rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin-right: 8px; white-space: nowrap; }
   .filter-btn { background: none; border: 1.5px solid transparent; padding: 10px 18px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: .85rem; color: var(--mid); cursor: pointer; white-space: nowrap; transition: all var(--ease); }
@@ -81,7 +77,7 @@
   .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
   .card-img img.error-img { object-fit: contain; padding: 24px; opacity: .3; }
   .unit-card:hover .card-img img { transform: scale(1.04); }
-  .card-badge { position: absolute; top: 14px; left: 14px; background: rgba(255,255,255,.92); backdrop-filter: blur(6px); padding: 4px 10px; border-radius: 100px; font-size: .72rem; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--forest); }
+  .card-badge { position: absolute; top: 14px; left: 14px; background: rgba(255,255,255,.92); padding: 4px 10px; border-radius: 100px; font-size: .72rem; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--forest); }
   .card-badge.waitlist { background: rgba(90,90,82,.12); color: var(--mid); }
   .card-badge.avail-soon { background: rgba(193,125,82,.15); color: var(--clay-dark); }
   .card-variant-count { position: absolute; bottom: 12px; right: 12px; background: rgba(0,0,0,.45); color: #fff; padding: 3px 9px; border-radius: 100px; font-size: .72rem; }
@@ -96,6 +92,7 @@
   .card-price-from { font-size: .7rem; letter-spacing: 1px; text-transform: uppercase; color: var(--mid); display: block; }
   .card-price-num { font-size: 1.4rem; color: var(--charcoal); }
   .card-price-mo { font-size: .75rem; color: var(--mid); }
+  .card-price-lease { display: block; font-size: .65rem; color: var(--mid); letter-spacing: .3px; margin-top: 2px; }
   .card-price-tbd { font-size: .95rem; color: var(--mid); font-family: 'DM Sans', sans-serif; }
   .card-cta { background: var(--clay); color: #fff; border: none; padding: 10px 20px; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: .8rem; font-weight: 500; cursor: pointer; transition: background var(--ease); }
   .card-cta:hover { background: var(--clay-dark); }
@@ -107,17 +104,17 @@
   .modal-overlay.open .modal { transform: translateY(0); }
 
   /* GALLERY */
-  .modal-gallery { position: relative; height: 520px; background: #1a1a1a; overflow: hidden; }
+  .modal-gallery { position: relative; height: 520px; background: #fff; overflow: hidden; }
   .gallery-slide img { width: 100%; height: 100%; object-fit: cover; }
-  .gallery-slide img.fp-img { object-fit: contain; background: #1a1a1a; padding: 0; width: 100%; height: 100%; }
+  .gallery-slide img.fp-img { object-fit: contain; background: #fff; padding: 0; width: 100%; height: 100%; }
   .gallery-slides { display: flex; height: 100%; transition: transform .4s cubic-bezier(.4,0,.2,1); }
   .gallery-slide { flex: 0 0 100%; height: 100%; }
   .gallery-slide img { width: 100%; height: 100%; object-fit: cover; }
-  .gallery-slide img.fp-img { object-fit: contain; background: var(--sand); padding: 0; }
+  .gallery-slide img.fp-img { object-fit: contain; background: #fff; padding: 0; }
   .modal-close { position: absolute; top: 16px; right: 16px; z-index: 10; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.9); border: none; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: background var(--ease); }
   .modal-close:hover { background: #fff; }
-  .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.85); border: none; cursor: pointer; font-size: 1.2rem; color: var(--charcoal); transition: background var(--ease); display: flex; align-items: center; justify-content: center; }
-  .gallery-arrow:hover { background: #fff; }
+  .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: rgba(90,169,167,.18); border: 1.5px solid rgba(90,169,167,.4); cursor: pointer; font-size: 1.2rem; color: var(--forest); transition: background var(--ease); display: flex; align-items: center; justify-content: center; }
+  .gallery-arrow:hover { background: rgba(90,169,167,.32); }
   .gallery-arrow.prev { left: 16px; }
   .gallery-arrow.next { right: 16px; }
   .gallery-dots { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
@@ -135,8 +132,12 @@
   .modal-price-big { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--clay); }
   .modal-price-mo { font-size: .8rem; color: var(--mid); }
 
-  .modal-specs { display: flex; margin-bottom: 28px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-  .modal-spec { flex: 1; padding: 16px 20px; border-right: 1px solid var(--border); }
+  .type-section { margin-bottom: 40px; }
+  .type-heading { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 500; color: var(--charcoal); padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+  .unit-grid.grouped { display: block; }
+  .unit-grid-inner { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .modal-specs { display: flex; flex-wrap: wrap; margin-bottom: 28px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .modal-spec { flex: 1; min-width: 80px; padding: 12px 14px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .modal-spec:last-child { border-right: none; }
   .spec-label { font-size: .68rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 4px; }
   .spec-val { font-family: 'Playfair Display', serif; font-size: 1.2rem; }
@@ -165,13 +166,25 @@
   .no-avail { color: var(--mid); font-size: .85rem; padding: 8px 0 4px; }
 
   /* CONTACT BAR */
-  body.modal-open { overflow: hidden; }
   .special-banner { background: #F4EECB; border-bottom: 1px solid #e8dfa8; padding: 12px 40px; display: flex; align-items: center; gap: 10px; font-size: .82rem; color: #5a4a00; }
   .special-banner strong { font-weight: 600; }
   .special-tag { position: absolute; top: 14px; right: 14px; background: #F4EECB; color: #7a5a00; padding: 3px 9px; border-radius: 100px; font-size: .68rem; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; }
-  .contact-bar p { font-size: .9rem; color: rgba(255,255,255,.7); }
-  .contact-bar a { color: var(--clay); font-weight: 600; text-decoration: none; }
-  .contact-bar strong { color: #fff; }
+  .contact-bar { background: var(--forest); color: #fff; padding: 48px 40px; }
+  .contact-bar-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 40px; }
+  .contact-bar-left h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 500; margin-bottom: 6px; }
+  .contact-bar-left p { font-size: .9rem; color: rgba(255,255,255,.65); }
+  .contact-bar-right { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+  .contact-links { display: flex; gap: 24px; align-items: center; }
+  .contact-links a { color: rgba(255,255,255,.8); font-size: .88rem; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color var(--ease); }
+  .contact-links a:hover { color: #fff; }
+  .contact-apply { background: var(--clay); color: #fff; padding: 12px 28px; border-radius: 8px; font-weight: 600; font-size: .88rem; text-decoration: none; transition: background var(--ease); white-space: nowrap; }
+  .contact-apply:hover { background: var(--clay-dark); color: #fff; }
+  @media (max-width: 720px) {
+    .contact-bar { padding: 36px 20px; }
+    .contact-bar-inner { grid-template-columns: 1fr; gap: 24px; }
+    .contact-bar-right { align-items: flex-start; }
+    .contact-links { flex-direction: column; gap: 10px; align-items: flex-start; }
+  }
 
   @media (max-width: 720px) {
     nav { padding: 0 16px; gap: 12px; }
@@ -181,17 +194,18 @@
     .nav-cta { padding: 8px 14px; font-size: .75rem !important; }
     .hero, .filter-bar, .grid-section { padding-left: 16px; padding-right: 16px; }
     .hero { grid-template-columns: 1fr; }
-    .hero-stats { display: none; }
     .modal-content { padding: 24px 20px 40px; }
     .modal-body { grid-template-columns: 1fr; }
     .modal-header { flex-direction: column; gap: 12px; }
     .modal-price-block { text-align: left; }
+    .modal-specs { font-size: .85rem; }
+    .spec-val { font-size: 1rem; }
     .modal-gallery { height: 320px; }
+    .unit-grid-inner { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
-<div id="page-wrap">
 
 <nav>
   <a href="https://culdesac.com" class="nav-logo">
@@ -211,11 +225,6 @@
     <h1>Find your<br><em>perfect unit.</em></h1>
     <p class="hero-sub">Car-free living in the heart of Tempe. Walk to light rail, local restaurants, and everything you need.</p>
   </div>
-  <div class="hero-stats">
-    <div class="stat"><div class="stat-num" id="stat-avail">9</div><div class="stat-label">Available Now</div></div>
-    <div class="stat"><div class="stat-num">760+</div><div class="stat-label">Residents</div></div>
-    <div class="stat"><div class="stat-num">92</div><div class="stat-label">Walk Score</div></div>
-  </div>
 </div>
 
 <div class="filter-bar">
@@ -224,9 +233,6 @@
   <button class="filter-btn" data-filter="studio">Studio</button>
   <button class="filter-btn" data-filter="1bed">1 Bed</button>
   <button class="filter-btn" data-filter="2bed">2 Bed</button>
-  <div class="filter-divider"></div>
-  <button class="filter-btn" data-filter="balcony">Has Balcony</button>
-  <div class="filter-divider"></div>
   <select class="sort-select" id="sort-select">
     <option value="price-asc">Price: Low → High</option>
     <option value="price-desc">Price: High → Low</option>
@@ -247,13 +253,25 @@
 </div>
 
 <div class="contact-bar">
-  <div>
-    <strong>Questions about a floor plan?</strong>
-    <p>Our leasing team is here to help.</p>
+  <div class="contact-bar-inner">
+    <div class="contact-bar-left">
+      <h3>Ready to find your home?</h3>
+      <p>Our leasing team is here to help — reach out anytime.</p>
+    </div>
+    <div class="contact-bar-right">
+      <div class="contact-links">
+        <a href="tel:4802106004">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          (480) 210-6004
+        </a>
+        <a href="/cdn-cgi/l/email-protection#3f5356495a7f5c4a535b5a4c5e5c115c5052">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span class="__cf_email__" data-cfemail="ddb1b4abb89dbea8b1b9b8aebcbef3beb2b0">[email&#160;protected]</span>
+        </a>
+      </div>
+      <a href="https://culdesac.com/tempe/apply" class="contact-apply">Apply Now →</a>
+    </div>
   </div>
-  <a href="tel:4802106004">(480) 210-6004</a>
-  <a href="mailto:tempe@culdesac.com">tempe@culdesac.com</a>
-  <a href="https://culdesac.com/tempe/apply" style="background:var(--clay);color:#fff;padding:12px 24px;border-radius:8px;font-weight:600;">Apply Now →</a>
 </div>
 
 <!-- MODAL -->
@@ -284,10 +302,6 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         <span><strong>Special offer:</strong> Apply before Sunday for 4 weeks free rent on this unit.</span>
       </div>
-      <div style="margin-bottom:20px;" id="modal-variants-wrap">
-        <p class="section-title">Floor Plan Variants</p>
-        <div class="fp-variants" id="modal-variants"></div>
-      </div>
       <div class="modal-body">
         <div>
           <p class="section-title">Availability</p>
@@ -306,7 +320,7 @@
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ════════════════════════════════════════════════════════════
    RENTCAFE API CONFIG
    ════════════════════════════════════════════════════════════ */
@@ -369,17 +383,30 @@ const FLOORPLANS = [
     name: 'Marigold',
     type: 'studio',
     beds: 0, baths: 1, sqft: 635,
-    priceFrom: 1614,
+    priceFrom: 1449,
     balcony: false,
     special: true,
     unitCount: 1,
     variants: [
       { label: 'Dollhouse View', img: IMG('Marigold-(2005,-3005,-2003,-3003,-2011,-3011,-2013,-3013).jpg'), isFP: true },
-      { label: 'Floor Plan',     img: IMG('Marigold (no balcony) 635 sq ft.jpg'), isFP: true },
+      { label: 'Interior 1',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-38.jpg') },
+      { label: 'Interior 2',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-39.jpg') },
+      { label: 'Interior 3',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-40.jpg') },
+      { label: 'Interior 4',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-41.jpg') },
+      { label: 'Interior 5',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-42.jpg') },
+      { label: 'Interior 6',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-43.jpg') },
+      { label: 'Interior 7',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-44.jpg') },
+      { label: 'Interior 8',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-45.jpg') },
+      { label: 'Interior 9',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-46.jpg') },
+      { label: 'Interior 10', img: IMG('interior-photos/marigold/2025 E Apache Blvd-47.jpg') },
+      { label: 'Interior 11', img: IMG('interior-photos/marigold/2025 E Apache Blvd-48.jpg') },
+      { label: 'Interior 12', img: IMG('interior-photos/marigold/2025 E Apache Blvd-49.jpg') },
+      { label: 'Interior 13', img: IMG('interior-photos/marigold/2025 E Apache Blvd-50.jpg') },
+      { label: 'Floor Plan',  img: IMG('Marigold (no balcony) 635 sq ft.jpg'), isFP: true },
     ],
     features: ['Full kitchen','Open layout','In-unit W/D','Bike storage','Keyless entry','Nest thermostat'],
     availableUnits: [
-      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1614 },
+      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1449 },
     ],
     status: 'available',
   },
@@ -388,17 +415,30 @@ const FLOORPLANS = [
     name: 'Marigold — Private Balcony',
     type: 'studio',
     beds: 0, baths: 1, sqft: 635,
-    priceFrom: 1776,
+    priceFrom: 1660,
     balcony: true,
     special: true,
     unitCount: 1,
     variants: [
       { label: 'Dollhouse View', img: IMG('Marigold-(2005,-3005,-2003,-3003,-2011,-3011,-2013,-3013).jpg'), isFP: true },
-      { label: 'Private Balcony', img: IMG('Marigold 635 sq ft.jpg'), isFP: true },
+      { label: 'Interior 1',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-38.jpg') },
+      { label: 'Interior 2',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-39.jpg') },
+      { label: 'Interior 3',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-40.jpg') },
+      { label: 'Interior 4',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-41.jpg') },
+      { label: 'Interior 5',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-42.jpg') },
+      { label: 'Interior 6',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-43.jpg') },
+      { label: 'Interior 7',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-44.jpg') },
+      { label: 'Interior 8',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-45.jpg') },
+      { label: 'Interior 9',  img: IMG('interior-photos/marigold/2025 E Apache Blvd-46.jpg') },
+      { label: 'Interior 10', img: IMG('interior-photos/marigold/2025 E Apache Blvd-47.jpg') },
+      { label: 'Interior 11', img: IMG('interior-photos/marigold/2025 E Apache Blvd-48.jpg') },
+      { label: 'Interior 12', img: IMG('interior-photos/marigold/2025 E Apache Blvd-49.jpg') },
+      { label: 'Interior 13', img: IMG('interior-photos/marigold/2025 E Apache Blvd-50.jpg') },
+      { label: 'Floor Plan',  img: IMG('Marigold 635 sq ft.jpg'), isFP: true },
     ],
     features: ['Private balcony','Full kitchen','Open layout','In-unit W/D','Bike storage','Nest thermostat'],
     availableUnits: [
-      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1776 },
+      { unit: 'Contact leasing', moveIn: 'Available Mar 30', price: 1660 },
     ],
     status: 'available',
   },
@@ -414,13 +454,17 @@ const FLOORPLANS = [
     special: false,
     unitCount: 1,
     variants: [
-      { label: '1st Floor',  img: IMG('Unit-12-Barbary-Fig-C-1st-Floor.jpg'), isFP: true },
-      { label: '2nd Floor',  img: IMG('Unit-12-Barbary-Fig-C-2nd-Floor.jpg'), isFP: true },
-      { label: 'Floor Plan', img: IMG('barbary fig (combined).jpg'), isFP: true },
+      { label: '1st Floor',   img: IMG('Unit-12-Barbary-Fig-C-1st-Floor.jpg'), isFP: true },
+      { label: '2nd Floor',   img: IMG('Unit-12-Barbary-Fig-C-2nd-Floor.jpg'), isFP: true },
+      { label: 'Interior 1',  img: IMG('interior-photos/barbary fig/Barbary Fig A 1BR, 1BA - 638SF.jpg') },
+      { label: 'Interior 2',  img: IMG('interior-photos/barbary fig/Barbary Fig A 1BR, 1BA - 638SF 2.jpg') },
+      { label: 'Interior 3',  img: IMG('interior-photos/barbary fig/Barbary Fig A 1BR, 1BA - 638SF 3.jpg') },
+      { label: 'Interior 4',  img: IMG('interior-photos/barbary fig/Barbary Fig A 1BR, 1BA - 638SF 4.jpg') },
+      { label: 'Floor Plan',  img: IMG('barbary fig (combined).jpg'), isFP: true },
     ],
     features: ['Combined unit layout','Open kitchen','In-unit W/D','Bike storage','Keyless entry','Nest thermostat'],
     availableUnits: [
-      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1580 },
+      { unit: 'Contact leasing', moveIn: 'Available May 17', price: 1580 },
     ],
     status: 'available',
   },
@@ -429,18 +473,17 @@ const FLOORPLANS = [
     name: 'Agave',
     type: '1bed',
     beds: 1, baths: 1, sqft: 688,
-    priceFrom: 1650,
+    priceFrom: 1590,
     balcony: true,
     special: false,
     unitCount: 2,
     variants: [
-      { label: 'Dollhouse View',  img: IMG('Unit-6-Agave-A.jpg'), isFP: true },
-      { label: 'Private Balcony', img: IMG('Agave - Private Balcony 688 sq ft_2026.jpg'), isFP: true },
-      { label: 'Agave A',         img: IMG('Agave A.jpg'), isFP: true },
+      { label: 'Dollhouse View', img: IMG('Unit-6-Agave-A.jpg'), isFP: true },
+      { label: 'Floor Plan',     img: IMG('Agave - Private Balcony 688 sq ft_2026.jpg'), isFP: true },
     ],
     features: ['Private balcony option','Open layout','In-unit W/D','Quartz countertops','Bike storage','Nest thermostat'],
     availableUnits: [
-      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1650 },
+      { unit: 'Contact leasing', moveIn: 'Available Apr 1', price: 1590 },
     ],
     status: 'available',
   },
@@ -449,17 +492,17 @@ const FLOORPLANS = [
     name: 'Agave — Semi-private Patio',
     type: '1bed',
     beds: 1, baths: 1, sqft: 688,
-    priceFrom: 1580,
+    priceFrom: 1510,
     balcony: true,
     special: false,
-    unitCount: 3,
+    unitCount: 1,
     variants: [
       { label: 'Dollhouse View',     img: IMG('Unit-6-Agave-A.jpg'), isFP: true },
       { label: 'Semi-private Patio', img: IMG('Agave - Private Balcony 688 sq ft_2026.jpg'), isFP: true },
     ],
     features: ['Semi-private patio','Open layout','In-unit W/D','Quartz countertops','Bike storage','Nest thermostat'],
     availableUnits: [
-      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1580 },
+      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1510 },
     ],
     status: 'available',
   },
@@ -468,22 +511,24 @@ const FLOORPLANS = [
     name: 'Cholla',
     type: '1bed',
     beds: 1, baths: 1, sqft: 664,
-    priceFrom: 1590,
+    priceFrom: 1480,
     balcony: false,
     special: false,
     unitCount: 1,
     variants: [
-      { label: 'Cholla A',         img: IMG('Cholla-A-2043.jpg'), isFP: true },
-      { label: 'Cholla B',         img: IMG('Cholla-B-(3039,-3037,-3033,-3055).jpg'), isFP: true },
-      { label: 'Cholla C',         img: IMG('Cholla-C-(3041,-3031,-3049,-3047).jpg'), isFP: true },
-      { label: 'Plan — Standard',  img: IMG('Cholla 664 sq ft.jpg'), isFP: true },
-      { label: 'Plan A',           img: IMG('cholla a 656 sq ft.jpg'), isFP: true },
-      { label: 'Plan B',           img: IMG('cholla B 664 sq ft.jpg'), isFP: true },
-      { label: 'Plan — Balcony',   img: IMG('cholla c private balcony  664 sq ft.jpg'), isFP: true },
+      { label: 'Dollhouse View', img: IMG('Cholla-A-2043.jpg'), isFP: true },
+      { label: 'Interior 1',  img: IMG('interior-photos/cholla/IMG_6096-Enhanced-NR.jpg') },
+      { label: 'Interior 2',  img: IMG('interior-photos/cholla/IMG_6099.jpg') },
+      { label: 'Interior 3',  img: IMG('interior-photos/cholla/IMG_6108.jpg') },
+      { label: 'Interior 4',  img: IMG('interior-photos/cholla/IMG_6109.jpg') },
+      { label: 'Interior 5',  img: IMG('interior-photos/cholla/IMG_6116.jpg') },
+      { label: 'Interior 6',  img: IMG('interior-photos/cholla/IMG_6120.jpg') },
+      { label: 'Interior 7',  img: IMG('interior-photos/cholla/IMG_8661.jpg') },
+      { label: 'Floor Plan',  img: IMG('Cholla 664 sq ft.jpg'), isFP: true },
     ],
     features: ['Multiple layout options','Open kitchen','In-unit W/D','Bike storage','Keyless entry','Quartz countertops'],
     availableUnits: [
-      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1590 },
+      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1480 },
     ],
     status: 'available',
   },
@@ -492,18 +537,28 @@ const FLOORPLANS = [
     name: 'Ocotillo — Private Balcony',
     type: '1bed',
     beds: 1, baths: 1, sqft: 648,
-    priceFrom: 1942,
+    priceFrom: 1790,
     balcony: true,
     special: true,
     unitCount: 1,
     furnished: true,
     variants: [
-      { label: 'Dollhouse View',              img: IMG('Ocotillo-(2041,-2031,-2051,-2049,-2047).jpg'), isFP: true },
-      { label: 'Private Balcony · Furnished', img: IMG('Ocotillo - Private Balcony 648 sq ft.jpg'), isFP: true },
+      { label: 'Dollhouse View', img: IMG('Ocotillo-(2041,-2031,-2051,-2049,-2047).jpg'), isFP: true },
+      { label: 'Interior 1',  img: IMG('interior-photos/ocotillo/01-IMG_2533.jpg') },
+      { label: 'Interior 2',  img: IMG('interior-photos/ocotillo/02-IMG_2539.jpg') },
+      { label: 'Interior 3',  img: IMG('interior-photos/ocotillo/03-IMG_2545.jpg') },
+      { label: 'Interior 4',  img: IMG('interior-photos/ocotillo/04-IMG_2551.jpg') },
+      { label: 'Interior 5',  img: IMG('interior-photos/ocotillo/05-IMG_2557.jpg') },
+      { label: 'Interior 6',  img: IMG('interior-photos/ocotillo/06-IMG_2563.jpg') },
+      { label: 'Interior 7',  img: IMG('interior-photos/ocotillo/07-IMG_2569.jpg') },
+      { label: 'Interior 8',  img: IMG('interior-photos/ocotillo/08-IMG_2575.jpg') },
+      { label: 'Interior 9',  img: IMG('interior-photos/ocotillo/09-IMG_2581.jpg') },
+      { label: 'Interior 10', img: IMG('interior-photos/ocotillo/10-IMG_2587.jpg') },
+      { label: 'Floor Plan',  img: IMG('Ocotillo - Private Balcony 648 sq ft.jpg'), isFP: true },
     ],
     features: ['Fully furnished','Private balcony','Open kitchen','In-unit W/D','Bike storage','Quartz countertops'],
     availableUnits: [
-      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1942, furnished: true },
+      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1790, furnished: true },
     ],
     status: 'available',
   },
@@ -514,7 +569,7 @@ const FLOORPLANS = [
     name: 'Desert Lily',
     type: '2bed',
     beds: 2, baths: 2, sqft: '967–1021',
-    priceFrom: 2270,
+    priceFrom: 2190,
     balcony: false,
     special: false,
     unitCount: 2,
@@ -525,7 +580,7 @@ const FLOORPLANS = [
     ],
     features: ['Two full baths','Variable sq ft','In-unit W/D','Quartz countertops','Bike storage','Nest thermostat'],
     availableUnits: [
-      { unit: 'Contact leasing', moveIn: 'Available Now', price: 2270 },
+      { unit: 'Contact leasing', moveIn: 'Available Apr 6', price: 2190 },
     ],
     status: 'available',
   },
@@ -534,18 +589,17 @@ const FLOORPLANS = [
     name: 'Acacia',
     type: '2bed',
     beds: 2, baths: 1, sqft: 984,
-    priceFrom: 2520,
+    priceFrom: 2260,
     balcony: true,
     special: false,
     unitCount: 1,
     variants: [
-      { label: 'Dollhouse View',  img: IMG('Acacia-(2007,-3007,-2009,-3009,-2015,-3015).jpg'), isFP: true },
-      { label: 'Standard',        img: IMG('Acacia 984 sq ft.jpg'), isFP: true },
-      { label: 'Private Balcony', img: IMG('Acacia - Private Balcony 984 sq ft.jpg'), isFP: true },
+      { label: 'Dollhouse View', img: IMG('Acacia-(2007,-3007,-2009,-3009,-2015,-3015).jpg'), isFP: true },
+      { label: 'Floor Plan',     img: IMG('Acacia 984 sq ft.jpg'), isFP: true },
     ],
     features: ['Private balcony option','Spacious layout','In-unit W/D','Quartz countertops','Bike storage','Nest thermostat'],
     availableUnits: [
-      { unit: 'Contact leasing', moveIn: 'Available Now', price: 2520 },
+      { unit: 'Contact leasing', moveIn: 'Available Now', price: 2260 },
     ],
     status: 'available',
   },
@@ -619,7 +673,6 @@ function getFiltered() {
   if (activeFilter === 'studio')  list = list.filter(u => u.type === 'studio');
   if (activeFilter === '1bed')    list = list.filter(u => u.type === '1bed');
   if (activeFilter === '2bed')    list = list.filter(u => u.type === '2bed');
-  if (activeFilter === 'balcony') list = list.filter(u => u.balcony);
 
   list.sort((a,b) => {
     const sqA = typeof a.sqft === 'string' ? parseInt(a.sqft) : (a.sqft || 0);
@@ -634,54 +687,76 @@ function getFiltered() {
   return list;
 }
 
+function cardHTML(u, i) {
+  const thumb = u.variants[0].img;
+  const sqftDisplay = u.sqft ? `${u.sqft} sq ft` : 'Sq ft TBD';
+  const bathDisplay = u.baths === 1.5 ? '1.5 ba' : `${u.baths} ba`;
+  const priceDisplay = u.priceFrom
+    ? `<span class="card-price-num">$${u.priceFrom.toLocaleString()}</span><span class="card-price-mo">/mo</span><span class="card-price-lease">*18 mo lease</span>`
+    : `<span class="card-price-tbd">Contact for pricing</span>`;
+  const badgeText = u.unitCount === 1 ? 'Only 1 Unit Left!' : `${u.unitCount} Units Available`;
+  const badgeCls  = u.unitCount === 1 ? 'avail-soon' : '';
+  return `
+  <div class="unit-card" data-id="${u.id}" style="animation-delay:${i*50}ms">
+    <div class="card-img">
+      <img src="${thumb}" alt="${u.name}" loading="eager" onerror="this.classList.add('error-img');this.src='data:image/svg+xml,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'80\\' height=\\'80\\' viewBox=\\'0 0 24 24\\'><path fill=\\' %23ccc\\' d=\\'M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-1 14H6l3.5-4.5 2.5 3.01L15 11l3 5z\\'/></svg>'">
+      <div class="card-badge ${badgeCls}">${badgeText}</div>
+      ${u.special ? `<div class="special-tag">★ Special offer</div>` : ''}
+      ${!u.special && u.furnished ? `<div class="card-variant-count">Furnished</div>` : ''}
+    </div>
+    <div class="card-body">
+      <div class="card-type">${bedLabel(u.beds)}</div>
+      <div class="card-name">${u.name}</div>
+      <div class="card-meta">
+        <span class="card-meta-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V8l9-6 9 6v14H3z"/></svg>
+          ${u.beds === 0 ? 'Studio' : `${u.beds} bd · ${bathDisplay}`}
+        </span>
+        <span class="card-meta-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+          ${sqftDisplay}
+        </span>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">
+          <span class="card-price-from">From</span>
+          ${priceDisplay}
+        </div>
+        <button class="card-cta">View Details</button>
+      </div>
+    </div>
+  </div>`;
+}
+
 function render() {
   const list = getFiltered();
   document.getElementById('results-meta').innerHTML =
     `Showing <strong>${list.length}</strong> available floor plan${list.length !== 1 ? 's' : ''}`;
 
-  document.getElementById('unit-grid').innerHTML = list.map((u, i) => {
-    const thumb = u.variants[0].img;
-    const sqftDisplay = u.sqft ? `${u.sqft} sq ft` : 'Sq ft TBD';
-    const bathDisplay = u.baths === 1.5 ? '1.5 ba' : `${u.baths} ba`;
-    const hasMultiVariants = u.variants.length > 1;
-    const priceDisplay = u.priceFrom
-      ? `<span class="card-price-num">$${u.priceFrom.toLocaleString()}</span><span class="card-price-mo">/mo</span>`
-      : `<span class="card-price-tbd">Contact for pricing</span>`;
-    const badgeText = u.unitCount === 1 ? 'Only 1 Unit Left!' : `${u.unitCount} Units Available`;
-    const badgeCls  = u.unitCount === 1 ? 'avail-soon' : '';
+  const grid = document.getElementById('unit-grid');
 
-    return `
-    <div class="unit-card" data-id="${u.id}" style="animation-delay:${i*50}ms">
-      <div class="card-img">
-        <img src="${thumb}" alt="${u.name}" loading="eager" onerror="this.classList.add('error-img');this.src='data:image/svg+xml,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'80\\' height=\\'80\\' viewBox=\\'0 0 24 24\\'><path fill=\\' %23ccc\\' d=\\'M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-1 14H6l3.5-4.5 2.5 3.01L15 11l3 5z\\'/></svg>'">
-        <div class="card-badge ${badgeCls}">${badgeText}</div>
-        ${u.special ? `<div class="special-tag">★ Special offer</div>` : ''}
-        ${!u.special && u.furnished ? `<div class="card-variant-count">Furnished</div>` : ''}
-        ${!u.special && !u.furnished && u.variants.length > 1 ? `<div class="card-variant-count">${u.variants.length} variants</div>` : ''}
-      </div>
-      <div class="card-body">
-        <div class="card-type">${bedLabel(u.beds)}</div>
-        <div class="card-name">${u.name}</div>
-        <div class="card-meta">
-          <span class="card-meta-item">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22V8l9-6 9 6v14H3z"/></svg>
-            ${u.beds === 0 ? 'Studio' : `${u.beds} bd · ${bathDisplay}`}
-          </span>
-          <span class="card-meta-item">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
-            ${sqftDisplay}
-          </span>
-        </div>
-        <div class="card-footer">
-          <div class="card-price">
-            <span class="card-price-from">From</span>
-            ${priceDisplay}
+  if (activeFilter !== 'all') {
+    grid.classList.remove('grouped');
+    grid.innerHTML = list.map((u, i) => cardHTML(u, i)).join('');
+  } else {
+    grid.classList.add('grouped');
+    const groups = [
+      { key: 'studio', label: 'Studio' },
+      { key: '1bed',   label: '1 Bedroom' },
+      { key: '2bed',   label: '2 Bedroom' },
+    ];
+    grid.innerHTML = groups.map(g => {
+      const units = list.filter(u => u.type === g.key);
+      if (!units.length) return '';
+      return `
+        <div class="type-section">
+          <div class="type-heading">${g.label}</div>
+          <div class="unit-grid-inner">
+            ${units.map((u, i) => cardHTML(u, i)).join('')}
           </div>
-          <button class="card-cta">View Details</button>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
+        </div>`;
+    }).join('');
+  }
 
   document.querySelectorAll('.unit-card').forEach(c =>
     c.addEventListener('click', () => openModal(c.dataset.id)));
@@ -698,15 +773,11 @@ function openModal(id) {
   galleryIdx    = 0;
   if (!activeUnit) return;
   buildModal();
-  scrollY = window.scrollY;
   document.getElementById('modal-overlay').classList.add('open');
-  document.body.classList.add('modal-open');
 }
 
 function closeModal() {
   document.getElementById('modal-overlay').classList.remove('open');
-  document.body.classList.remove('modal-open');
-  window.scrollTo({ top: scrollY, behavior: 'instant' });
 }
 
 function buildModal() {
@@ -738,27 +809,7 @@ function buildModal() {
     document.getElementById('modal-special-note').style.display = 'none';
   }
 
-  // Variants selector
-  const variantWrap = document.getElementById('modal-variants-wrap');
-  if (u.variants.length > 1) {
-    variantWrap.style.display = 'block';
-    document.getElementById('modal-variants').innerHTML = u.variants.map((v,i) =>
-      `<button class="fp-variant-btn ${i===activeVariant?'active':''}" data-vi="${i}">${v.label}</button>`
-    ).join('');
-    document.querySelectorAll('.fp-variant-btn').forEach(btn =>
-      btn.addEventListener('click', () => {
-        activeVariant = +btn.dataset.vi;
-        document.querySelectorAll('.fp-variant-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        updateFloorplanImg();
-        buildGallery(); // rebuild gallery to show this variant first
-        setGallery(0);
-      }));
-  } else {
-    variantWrap.style.display = 'none';
-  }
-
-  // Gallery — show current variant FP image first, then generic room photos (none for now)
+  // Gallery
   buildGallery();
   setGallery(0);
 
@@ -794,16 +845,16 @@ function buildModal() {
 }
 
 function updateFloorplanImg() {
-  const img = activeUnit.variants[activeVariant].img;
-  document.getElementById('modal-fp-img').src = img;
+  // Always show the 2D floor plan (last isFP variant) in the sidebar thumbnail
+  const fp = [...activeUnit.variants].reverse().find(v => v.isFP);
+  document.getElementById('modal-fp-img').src = fp ? fp.img : activeUnit.variants[activeUnit.variants.length - 1].img;
 }
 
 function buildGallery() {
-  // Each variant's FP image becomes a gallery slide
   const slides = document.getElementById('gallery-slides');
   slides.innerHTML = activeUnit.variants.map((v, i) => `
     <div class="gallery-slide">
-      <img src="${v.img}" alt="${v.label}" class="fp-img" loading="${i===0?'eager':'lazy'}">
+      <img src="${v.img}" alt="${v.label}" class="${v.isFP ? 'fp-img' : ''}" loading="${i===0?'eager':'lazy'}">
     </div>`).join('');
 }
 
@@ -873,14 +924,10 @@ document.addEventListener('keydown', e => {
 
 /* ════════════════════════════════════════════════════════════
    INIT
-   ════════════════════════════════════════════════════════════ */
-async function init() {
-  if (API.key) await mergeApiData();
-  render();
-}
+   ══════════════════�
+   ═════════════════════════════════════════════════════════════ */
 
-init();
+render();
 </script>
-</div><!-- #page-wrap -->
 </body>
 </html>
