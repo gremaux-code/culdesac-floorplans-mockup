@@ -197,6 +197,39 @@
     .modal-overlay { align-items: flex-start; }
     .unit-grid-inner { grid-template-columns: 1fr; }
   }
+  /* APPLY MODAL */
+  .apply-modal-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(20,20,20,.65); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .22s cubic-bezier(.4,0,.2,1); }
+  .apply-modal-overlay.open { opacity: 1; pointer-events: all; }
+  .apply-modal { background: var(--warm-white); width: 100%; max-width: 520px; border-radius: 16px; overflow: hidden; transform: translateY(24px); transition: transform .35s cubic-bezier(.4,0,.2,1); }
+  .apply-modal-overlay.open .apply-modal { transform: translateY(0); }
+  .apply-modal-header { background: var(--forest); padding: 28px 32px 24px; }
+  .apply-modal-eyebrow { font-size: .7rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 6px; }
+  .apply-modal-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500; color: #F7F3F0; }
+  .apply-modal-unit { font-size: .85rem; color: rgba(255,255,255,.65); margin-top: 4px; }
+  .apply-modal-body { padding: 28px 32px 32px; }
+  .apply-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .apply-form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+  .apply-form-group label { font-size: .72rem; letter-spacing: 1.2px; text-transform: uppercase; color: var(--mid); }
+  .apply-form-group input, .apply-form-group select, .apply-form-group textarea { border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 14px; font-family: 'DM Sans', sans-serif; font-size: .9rem; color: var(--charcoal); background: #fff; transition: border-color .2s; outline: none; width: 100%; }
+  .apply-form-group input:focus, .apply-form-group select:focus, .apply-form-group textarea:focus { border-color: var(--forest); }
+  .apply-form-group textarea { resize: vertical; min-height: 80px; }
+  .apply-form-group .optional { font-size: .68rem; color: var(--mid); opacity: .6; margin-left: 4px; font-style: italic; text-transform: none; letter-spacing: 0; }
+  .apply-form-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
+  .apply-form-note { font-size: .75rem; color: var(--mid); }
+  .apply-submit-btn { background: var(--forest); color: #fff; border: none; padding: 12px 28px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: .9rem; font-weight: 600; cursor: pointer; transition: background .2s; }
+  .apply-submit-btn:hover { background: var(--clay-dark); }
+  .apply-submit-btn:disabled { opacity: .6; cursor: not-allowed; }
+  .apply-cancel-btn { background: none; border: none; font-family: 'DM Sans', sans-serif; font-size: .85rem; color: var(--mid); cursor: pointer; padding: 0; }
+  .apply-cancel-btn:hover { color: var(--charcoal); }
+  .apply-success { text-align: center; padding: 40px 32px; }
+  .apply-success-icon { font-size: 2.5rem; margin-bottom: 16px; }
+  .apply-success h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 8px; }
+  .apply-success p { color: var(--mid); font-size: .9rem; line-height: 1.6; }
+  @media (max-width: 720px) {
+    .apply-modal { border-radius: 0; max-width: 100%; height: 100dvh; overflow-y: auto; }
+    .apply-modal-overlay { align-items: flex-end; }
+    .apply-form-row { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -209,8 +242,7 @@
     <a href="https://culdesac.com/tempe">Tempe</a>
     <a href="https://culdesac.com/tempe/living">Living</a>
     <a href="tel:4802106004">(480) 210-6004</a>
-    <a href="https://culdesac.com/tempe/apply" class="nav-cta">Apply Now</a>
-  </div>
+<a href="#" class="nav-cta" onclick="event.preventDefault();openApplyModal(null)">Apply Now</a>  </div>
 </nav>
 
 <div class="hero">
@@ -815,8 +847,7 @@ const rawMoveIn = u.availableUnits[0]?.moveIn;
         </div>
         <div style="text-align:right">
           ${av.price ? `<div class="avail-price">$${av.price.toLocaleString()}/mo</div>` : ''}
-          <button class="apply-btn" onclick="window.open('${applyBase}','_blank')">Apply</button>
-        </div>
+<button class="apply-btn" onclick="event.stopPropagation();openApplyModal(activeUnit)">Apply</button>        </div>
       </div>`).join('');
   } else {
     availEl.innerHTML = `
@@ -886,6 +917,70 @@ document.addEventListener('visibilitychange', () => {
 });
 window.addEventListener('popstate', closeModal);
 
+/* ── APPLY MODAL ──────────────────────────────────── */
+let applyUnit = null;
+
+function openApplyModal(unit) {
+  applyUnit = unit;
+  document.getElementById('apply-modal-title').textContent = 'Start your application';
+  document.getElementById('apply-modal-unit').textContent = unit ? unit.name + (unit.priceFrom ? ' · From $' + unit.priceFrom.toLocaleString() + '/mo' : '') : '';
+  const bedroomsSelect = document.getElementById('apply-bedrooms');
+  if (unit) bedroomsSelect.value = String(unit.beds);
+  document.getElementById('apply-modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  bindApplyForm();
+}
+
+function closeApplyModal() {
+  document.getElementById('apply-modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function bindApplyForm() {
+  const cancelBtn = document.getElementById('apply-cancel-btn');
+  const submitBtn = document.getElementById('apply-submit-btn');
+  if (cancelBtn) cancelBtn.onclick = closeApplyModal;
+  if (submitBtn) submitBtn.onclick = submitApply;
+}
+
+async function submitApply() {
+  const firstName = document.getElementById('apply-first-name').value.trim();
+  const lastName  = document.getElementById('apply-last-name').value.trim();
+  const email     = document.getElementById('apply-email').value.trim();
+  const phone     = document.getElementById('apply-phone').value.trim();
+  const bedrooms  = document.getElementById('apply-bedrooms').value;
+  const notes     = document.getElementById('apply-notes').value.trim();
+
+  if (!firstName || !lastName || !email || !phone) {
+    alert('Please fill in your name, email, and phone number.');
+    return;
+  }
+
+  const btn = document.getElementById('apply-submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  if (API.key) {
+    try {
+      await fetchRC('/lead/createlead', {
+        firstName,
+        lastName,
+        email,
+        phone,
+        preferredBedrooms: bedrooms || undefined,
+        comments: notes || undefined,
+        floorPlanName: applyUnit?.name || undefined,
+      });
+    } catch(e) {
+      console.warn('Lead creation failed:', e);
+    }
+  }
+
+  document.getElementById('apply-modal-content').innerHTML = '<div class="apply-success"><div class="apply-success-icon">✓</div><h3>You\'re on your way!</h3><p>Taking you to complete your application now.<br>You\'ll be redirected in a moment.</p></div>';
+  setTimeout(() => { window.open('https://culdesac.com/tempe/apply/', '_blank'); closeApplyModal(); }, 1800);
+}
+
+
 document.getElementById('gallery-prev').addEventListener('click', e => {
   e.stopPropagation();
   const n = activeUnit.variants.length;
@@ -915,6 +1010,63 @@ document.addEventListener('keydown', e => {
    ═════════════════════════════════════════════════════════════ */
 
 render();
+</script>
+<!-- APPLY MODAL -->
+<div class="apply-modal-overlay" id="apply-modal-overlay">
+  <div class="apply-modal" id="apply-modal">
+    <div class="apply-modal-header">
+      <div class="apply-modal-eyebrow">Culdesac Tempe</div>
+      <div class="apply-modal-title" id="apply-modal-title">Start your application</div>
+      <div class="apply-modal-unit" id="apply-modal-unit"></div>
+    </div>
+    <div id="apply-modal-content">
+      <div class="apply-modal-body">
+        <div class="apply-form-row">
+          <div class="apply-form-group">
+            <label>First Name</label>
+            <input type="text" id="apply-first-name" placeholder="Jane" autocomplete="given-name">
+          </div>
+          <div class="apply-form-group">
+            <label>Last Name</label>
+            <input type="text" id="apply-last-name" placeholder="Smith" autocomplete="family-name">
+          </div>
+        </div>
+        <div class="apply-form-group">
+          <label>Email</label>
+          <input type="email" id="apply-email" placeholder="jane@email.com" autocomplete="email">
+        </div>
+        <div class="apply-form-group">
+          <label>Phone</label>
+          <input type="tel" id="apply-phone" placeholder="(480) 555-0100" autocomplete="tel">
+        </div>
+        <div class="apply-form-group">
+          <label>Bedrooms Interested In</label>
+          <select id="apply-bedrooms">
+            <option value="">Select...</option>
+            <option value="0">Studio</option>
+            <option value="1">1 Bedroom</option>
+            <option value="2">2 Bedroom</option>
+            <option value="3">3 Bedroom</option>
+          </select>
+        </div>
+        <div class="apply-form-group">
+          <label>Notes <span class="optional">(optional)</span></label>
+          <textarea id="apply-notes" placeholder="Anything we should know? Move-in timeline, questions, preferences..."></textarea>
+        </div>
+        <div class="apply-form-footer">
+          <button class="apply-cancel-btn" id="apply-cancel-btn">Cancel</button>
+          <button class="apply-submit-btn" id="apply-submit-btn">Continue to Application →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('apply-modal-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('apply-modal-overlay')) closeApplyModal();
+});
+bindApplyForm();
 </script>
 </body>
 </html>
