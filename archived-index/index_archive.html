@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>Tempe Floor Plans | Culdesac</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,8 +31,6 @@
   /* NAV */
   nav {
     position: sticky; top: 0; z-index: 100;
-    padding-left: max(40px, env(safe-area-inset-left));
-    padding-right: max(40px, env(safe-area-inset-right));
     background: rgba(253,250,245,.98);
     border-bottom: 1px solid var(--border);
     display: flex; align-items: center; justify-content: space-between;
@@ -61,7 +60,7 @@
   .filter-btn:hover { border-color: var(--border); color: var(--charcoal); }
   .filter-btn.active { background: var(--forest); color: #fff; border-color: var(--forest); }
   .filter-divider { width: 1px; height: 20px; background: var(--border); margin: 0 8px; flex-shrink: 0; }
-  .sort-select { background: none; border: 1.5px solid var(--border); padding: 8px 14px; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: .8rem; color: var(--mid); cursor: pointer; flex-shrink: 0; }
+  .sort-select { margin-left: auto; background: none; border: 1.5px solid var(--border); padding: 8px 14px; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: .8rem; color: var(--mid); cursor: pointer; flex-shrink: 0; }
 
   /* GRID */
   .grid-section { padding: 40px 40px 80px; }
@@ -78,7 +77,8 @@
   .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
   .card-img img.error-img { object-fit: contain; padding: 24px; opacity: .3; }
   .unit-card:hover .card-img img { transform: scale(1.04); }
-.card-badge { position: absolute; top: 14px; left: 14px; background: rgba(255,255,255,1); padding: 4px 10px; border-radius: 100px; font-size: .72rem; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--forest); }  .card-badge.waitlist { background: rgba(90,90,82,.12); color: var(--mid); }
+  .card-badge { position: absolute; top: 14px; left: 14px; background: rgba(255,255,255,.92); padding: 4px 10px; border-radius: 100px; font-size: .72rem; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--forest); }
+  .card-badge.waitlist { background: rgba(90,90,82,.12); color: var(--mid); }
   .card-badge.avail-soon { background: rgba(193,125,82,.15); color: var(--clay-dark); }
   .card-variant-count { position: absolute; bottom: 12px; right: 12px; background: rgba(0,0,0,.45); color: #fff; padding: 3px 9px; border-radius: 100px; font-size: .72rem; }
 
@@ -111,7 +111,8 @@
   .gallery-slide { flex: 0 0 100%; height: 100%; }
   .gallery-slide img { width: 100%; height: 100%; object-fit: cover; }
   .gallery-slide img.fp-img { object-fit: contain; background: #fff; padding: 0; }
-.modal-close { position: absolute; top: 16px; right: 16px; z-index: 10; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.9); border: none; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: background var(--ease); color: var(--forest); }  .modal-close:hover { background: #fff; }
+  .modal-close { position: absolute; top: 16px; right: 16px; z-index: 10; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.9); border: none; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: background var(--ease); }
+  .modal-close:hover { background: #fff; }
   .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: rgba(90,169,167,.18); border: 1.5px solid rgba(90,169,167,.4); cursor: pointer; font-size: 1.2rem; color: var(--forest); transition: background var(--ease); display: flex; align-items: center; justify-content: center; }
   .gallery-arrow:hover { background: rgba(90,169,167,.32); }
   .gallery-arrow.prev { left: 16px; }
@@ -124,18 +125,24 @@
   /* MODAL CONTENT */
   .modal-content { padding: 32px 40px 48px; }
   .modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
-.modal-name { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 500; }
-.modal-from { font-size: .7rem; letter-spacing: 1px; text-transform: uppercase; color: var(--mid); }
-.modal-price-big { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--clay); white-space: nowrap; line-height: 1; vertical-align: baseline; font-variant-numeric: lining-nums; }
+  .modal-type { font-size: .7rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 6px; }
+  .modal-name { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 500; }
+  .modal-price-block { text-align: right; flex-shrink: 0; }
+  .modal-from { font-size: .7rem; letter-spacing: 1px; text-transform: uppercase; color: var(--mid); }
+  .modal-price-big { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--clay); }
+  .modal-price-mo { font-size: .8rem; color: var(--mid); }
+
   .type-section { margin-bottom: 40px; }
   .type-heading { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 500; color: var(--charcoal); padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
   .unit-grid.grouped { display: block; }
   .unit-grid-inner { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-.modal-specs { display: flex; align-items: center; gap: 6px; margin-bottom: 24px; flex-wrap: nowrap; overflow: hidden; }
-  .modal-spec { display: flex; align-items: center; gap: 6px; }
-  .modal-spec::after { content: '·'; color: var(--mid); font-size: 1rem; margin-left: 2px; }
-  .modal-spec:last-child::after { content: ''; }  .spec-label { display: none; }
-.spec-val { font-family: 'DM Sans', sans-serif; font-size: 1.1rem; color: var(--charcoal); font-weight: 400; }  .modal-body { display: grid; grid-template-columns: 1fr 300px; gap: 36px; }
+  .modal-specs { display: flex; flex-wrap: wrap; margin-bottom: 28px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .modal-spec { flex: 1; min-width: 80px; padding: 12px 14px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .modal-spec:last-child { border-right: none; }
+  .spec-label { font-size: .68rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin-bottom: 4px; }
+  .spec-val { font-family: 'Playfair Display', serif; font-size: 1.2rem; }
+
+  .modal-body { display: grid; grid-template-columns: 1fr 300px; gap: 36px; }
   .section-title { font-family: 'Playfair Display', serif; font-size: 1rem; margin-bottom: 14px; color: var(--charcoal); }
 
   /* FLOORPLAN VARIANTS */
@@ -189,12 +196,11 @@
     .hero { grid-template-columns: 1fr; }
     .modal-content { padding: 24px 20px 40px; }
     .modal-body { grid-template-columns: 1fr; }
-  .modal-header { flex-direction: row; align-items: flex-start; }
-.modal-name { font-size: 1.8rem; }
-.modal-price-block { text-align: right; width: 140px; flex-shrink: 0; }
-   .modal-gallery { height: 260px; }
-    .modal { height: 100dvh; max-height: 100dvh; border-radius: 0; }
-    .modal-overlay { align-items: flex-start; }
+    .modal-header { flex-direction: column; gap: 12px; }
+    .modal-price-block { text-align: left; }
+    .modal-specs { font-size: .85rem; }
+    .spec-val { font-size: 1rem; }
+    .modal-gallery { height: 320px; }
     .unit-grid-inner { grid-template-columns: 1fr; }
   }
 </style>
@@ -223,11 +229,16 @@
 
 <div class="filter-bar">
   <span class="filter-label">Filter:</span>
-<input type="date" class="sort-select" id="movein-date" placeholder="Move-in by">
-  <div class="filter-divider"></div>
-  <button class="filter-btn active" data-filter="all">All</button>  <button class="filter-btn" data-filter="studio">Studio</button>
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="studio">Studio</button>
   <button class="filter-btn" data-filter="1bed">1 Bed</button>
   <button class="filter-btn" data-filter="2bed">2 Bed</button>
+  <select class="sort-select" id="sort-select">
+    <option value="price-asc">Price: Low → High</option>
+    <option value="price-desc">Price: High → Low</option>
+    <option value="sqft-desc">Largest First</option>
+    <option value="sqft-asc">Smallest First</option>
+    <option value="name">A → Z</option>
   </select>
 </div>
 
@@ -359,9 +370,8 @@ const IMG = (filename) => `./images/${filename}`;
    Senita w_ sq ft.jpg                       → Senita
    Yucca 850 sq ft_2026.jpg                  → Yucca
    ════════════════════════════════════════════════════════════ */
-const STANDARD_FEATURES = ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in closet','Semi-private courtyard'];
-
 const FLOORPLANS = [
+
   // NOTE: Prickly-Pear-1031.jpg, Yucca-3051.jpg, Saguaro-2045-(1st-floor).jpg,
   // Saguaro-2045-(2nd-floor).jpg, Ironwood-A-2057.jpg, Ironwood-B-3057.jpg,
   // Mesquite-3043.jpg, Senita-(3035,-3053).jpg, Chuparosa-(2039,-2037,-2035,-2033,-2053,-2055).jpg
@@ -394,8 +404,9 @@ const FLOORPLANS = [
       { label: 'Interior 13', img: IMG('interior-photos/marigold/2025 E Apache Blvd-50.jpg') },
       { label: 'Floor Plan',  img: IMG('Marigold (no balcony) 635 sq ft.jpg'), isFP: true },
     ],
-features: ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in closet','Semi-private courtyard'],    availableUnits: [
-      { unit: 'Contact leasing', moveIn: '03/23/26', price: 1449 },
+    features: ['Full kitchen','Open layout','In-unit W/D','Bike storage','Keyless entry','Nest thermostat'],
+    availableUnits: [
+      { unit: 'Contact leasing', moveIn: 'Available Now', price: 1449 },
     ],
     status: 'available',
   },
@@ -425,8 +436,9 @@ features: ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in 
       { label: 'Interior 13', img: IMG('interior-photos/marigold/2025 E Apache Blvd-50.jpg') },
       { label: 'Floor Plan',  img: IMG('Marigold 635 sq ft.jpg'), isFP: true },
     ],
-features: ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in closet','Semi-private courtyard'],    availableUnits: [
-      { unit: 'Contact leasing', moveIn: '03/30/26', price: 1660 },
+    features: ['Private balcony','Full kitchen','Open layout','In-unit W/D','Bike storage','Nest thermostat'],
+    availableUnits: [
+      { unit: 'Contact leasing', moveIn: 'Available Mar 30', price: 1660 },
     ],
     status: 'available',
   },
@@ -450,8 +462,9 @@ features: ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in 
       { label: 'Interior 4',  img: IMG('interior-photos/barbary fig/Barbary Fig A 1BR, 1BA - 638SF 4.jpg') },
       { label: 'Floor Plan',  img: IMG('barbary fig (combined).jpg'), isFP: true },
     ],
-features: ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in closet','Semi-private courtyard'],    availableUnits: [
-      { unit: 'Contact leasing', moveIn: '05/17/26', price: 1580 },
+    features: ['Combined unit layout','Open kitchen','In-unit W/D','Bike storage','Keyless entry','Nest thermostat'],
+    availableUnits: [
+      { unit: 'Contact leasing', moveIn: 'Available May 17', price: 1580 },
     ],
     status: 'available',
   },
@@ -468,9 +481,9 @@ features: ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in 
       { label: 'Dollhouse View', img: IMG('Unit-6-Agave-A.jpg'), isFP: true },
       { label: 'Floor Plan',     img: IMG('Agave - Private Balcony 688 sq ft_2026.jpg'), isFP: true },
     ],
-features: ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in closet','Semi-private courtyard'],
+    features: ['Private balcony option','Open layout','In-unit W/D','Quartz countertops','Bike storage','Nest thermostat'],
     availableUnits: [
-      { unit: 'Contact leasing', moveIn: '04/01/26', price: 1590 },
+      { unit: 'Contact leasing', moveIn: 'Available Apr 1', price: 1590 },
     ],
     status: 'available',
   },
@@ -487,7 +500,8 @@ features: ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in 
       { label: 'Dollhouse View',     img: IMG('Unit-6-Agave-A.jpg'), isFP: true },
       { label: 'Semi-private Patio', img: IMG('Agave - Private Balcony 688 sq ft_2026.jpg'), isFP: true },
     ],
-features: ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in closet','Semi-private courtyard'],    availableUnits: [
+    features: ['Semi-private patio','Open layout','In-unit W/D','Quartz countertops','Bike storage','Nest thermostat'],
+    availableUnits: [
       { unit: 'Contact leasing', moveIn: 'Available Now', price: 1510 },
     ],
     status: 'available',
@@ -512,7 +526,7 @@ features: ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in 
       { label: 'Interior 7',  img: IMG('interior-photos/cholla/IMG_8661.jpg') },
       { label: 'Floor Plan',  img: IMG('Cholla 664 sq ft.jpg'), isFP: true },
     ],
-features: ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in closet','Semi-private courtyard'],
+    features: ['Multiple layout options','Open kitchen','In-unit W/D','Bike storage','Keyless entry','Quartz countertops'],
     availableUnits: [
       { unit: 'Contact leasing', moveIn: 'Available Now', price: 1480 },
     ],
@@ -542,7 +556,7 @@ features: ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in 
       { label: 'Interior 10', img: IMG('interior-photos/ocotillo/10-IMG_2587.jpg') },
       { label: 'Floor Plan',  img: IMG('Ocotillo - Private Balcony 648 sq ft.jpg'), isFP: true },
     ],
-features: ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in closet','Semi-private courtyard'],
+    features: ['Fully furnished','Private balcony','Open kitchen','In-unit W/D','Bike storage','Quartz countertops'],
     availableUnits: [
       { unit: 'Contact leasing', moveIn: 'Available Now', price: 1790, furnished: true },
     ],
@@ -564,9 +578,9 @@ features: ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in 
       { label: '2nd Floor',  img: IMG('Unit-9-Desert-Lily-2nd-Floor.jpg'), isFP: true },
       { label: 'Floor Plan', img: IMG('Desert Lily - 967-1021 SF.jpg'), isFP: true },
     ],
-features: ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in closet','Semi-private courtyard'],
+    features: ['Two full baths','Variable sq ft','In-unit W/D','Quartz countertops','Bike storage','Nest thermostat'],
     availableUnits: [
-      { unit: 'Contact leasing', moveIn: '04/06/26', price: 2190 },
+      { unit: 'Contact leasing', moveIn: 'Available Apr 6', price: 2190 },
     ],
     status: 'available',
   },
@@ -583,7 +597,8 @@ features: ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in 
       { label: 'Dollhouse View', img: IMG('Acacia-(2007,-3007,-2009,-3009,-2015,-3015).jpg'), isFP: true },
       { label: 'Floor Plan',     img: IMG('Acacia 984 sq ft.jpg'), isFP: true },
     ],
-features: ['Full kitchen','In-unit W/D','Bike storage','Keyless entry','Walk-in closet','Semi-private courtyard'],    availableUnits: [
+    features: ['Private balcony option','Spacious layout','In-unit W/D','Quartz countertops','Bike storage','Nest thermostat'],
+    availableUnits: [
       { unit: 'Contact leasing', moveIn: 'Available Now', price: 2260 },
     ],
     status: 'available',
@@ -642,7 +657,7 @@ async function mergeApiData() {
    STATE
    ════════════════════════════════════════════════════════════ */
 let activeFilter  = 'all';
-let activeMoveInDate = null;let activeSort    = 'price-asc';
+let activeSort    = 'price-asc';
 let activeUnit    = null;
 let galleryIdx    = 0;
 let activeVariant = 0;
@@ -655,16 +670,10 @@ function bedShort(b)  { return b === 0 ? 'Studio' : `${b}bd`; }
 
 function getFiltered() {
   let list = FLOORPLANS.filter(u => u.status === 'available');
-if (activeFilter === 'studio')  list = list.filter(u => u.type === 'studio');
+  if (activeFilter === 'studio')  list = list.filter(u => u.type === 'studio');
   if (activeFilter === '1bed')    list = list.filter(u => u.type === '1bed');
   if (activeFilter === '2bed')    list = list.filter(u => u.type === '2bed');
-  if (activeMoveInDate) list = list.filter(u => {
-    const raw = u.availableUnits[0]?.moveIn;
-    if (!raw) return false;
-    const [mm, dd, yy] = raw.split('/');
-    const unitDate = `20${yy}-${mm}-${dd}`;
-    return unitDate <= activeMoveInDate;
-  });
+
   list.sort((a,b) => {
     const sqA = typeof a.sqft === 'string' ? parseInt(a.sqft) : (a.sqft || 0);
     const sqB = typeof b.sqft === 'string' ? parseInt(b.sqft) : (b.sqft || 0);
@@ -778,16 +787,20 @@ function buildModal() {
   document.getElementById('modal-name').textContent  = u.name;
 
   if (u.priceFrom) {
-document.getElementById('modal-price').textContent = '$' + u.priceFrom.toLocaleString();  } else {
+    document.getElementById('modal-price').textContent = `$${u.priceFrom.toLocaleString()}`;
+    document.getElementById('modal-price-suffix').textContent = '/month';
+  } else {
     document.getElementById('modal-price').textContent = 'Contact us';
     document.getElementById('modal-price-suffix').textContent = 'for pricing';
   }
 
   const sqftTxt = u.sqft ? `${u.sqft} sq ft` : '—';
-const rawMoveIn = u.availableUnits[0]?.moveIn;
-  const availDate = rawMoveIn ? 'Available ' + rawMoveIn : 'Contact leasing';
-  document.getElementById('modal-specs').innerHTML = [    { label: 'Available', val: availDate },
-    { label: 'Sq Ft',     val: sqftTxt },
+  const availDate = u.availableUnits[0]?.moveIn || 'Contact leasing';
+  document.getElementById('modal-specs').innerHTML = [
+    { label: 'Type',       val: u.beds === 0 ? 'Studio' : `${u.beds} Bed` },
+    { label: 'Sq Ft',      val: sqftTxt },
+    { label: 'Available',  val: availDate },
+    { label: u.unitCount === 1 ? 'Units' : 'Units', val: u.unitCount === 1 ? 'Only 1 Left' : `${u.unitCount} Available` },
   ].map(s => `<div class="modal-spec"><div class="spec-label">${s.label}</div><div class="spec-val">${s.val}</div></div>`).join('');
 
   if (u.special) {
@@ -870,8 +883,8 @@ document.querySelectorAll('.filter-btn').forEach(btn =>
     render();
   }));
 
-document.getElementById('movein-date').addEventListener('change', e => {
-  activeMoveInDate = e.target.value || null;
+document.getElementById('sort-select').addEventListener('change', e => {
+  activeSort = e.target.value;
   render();
 });
 
@@ -917,4 +930,4 @@ document.addEventListener('keydown', e => {
 render();
 </script>
 </body>
-</html>
+</htm
